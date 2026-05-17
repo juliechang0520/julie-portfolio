@@ -96,7 +96,7 @@ section{padding:8rem 3rem}
 .work-card.wide{grid-column:span 2}
 .work-img-wrap{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:var(--bg3);flex-shrink:0}
 .work-card.wide .work-img-wrap{aspect-ratio:21/9}
-.work-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1),filter 0.4s;filter:grayscale(20%)}
+.work-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1),filter 0.4s;filter:grayscale(20%)}
 .work-card:hover .work-img-wrap img{transform:scale(1.06);filter:grayscale(0%)}
 .work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,0.95) 0%,rgba(13,13,13,0.2) 60%,transparent 100%);opacity:0;transition:opacity 0.4s;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;pointer-events:none}
 .work-card:hover .work-overlay{opacity:1}
@@ -111,14 +111,23 @@ section{padding:8rem 3rem}
 .work-tags-row{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:auto;padding-top:0.75rem}
 .work-tag{font-family:var(--mono);font-size:0.55rem;padding:0.2rem 0.55rem;border:1px solid var(--border);color:var(--muted)}
 /* Lightbox */
-#lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:1.5rem}
 #lightbox.open{display:flex}
-#lightbox img{max-width:88vw;max-height:72vh;object-fit:contain;border:1px solid var(--border)}
+.lb-stage{position:relative;width:92vw;height:72vh;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:#000}
+.lb-stage.zoomed{cursor:grab}
+.lb-stage.zoomed.dragging{cursor:grabbing}
+#lightbox img{max-width:100%;max-height:100%;object-fit:contain;display:block;transform-origin:center center;transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);user-select:none;-webkit-user-drag:none;pointer-events:none}
+.lb-stage.zoomed img{transition:none}
 .lb-info{text-align:center}
 .lb-company{font-family:var(--mono);font-size:0.8rem;color:var(--accent);margin-bottom:0.3rem}
 .lb-title{font-size:0.82rem;color:var(--text)}
-.lb-close{position:fixed;top:2rem;right:2rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--muted);background:none;border:1px solid var(--border);padding:0.5rem 1rem;cursor:none;transition:all 0.3s}
+.lb-hint{font-family:var(--mono);font-size:0.55rem;color:var(--muted);letter-spacing:0.2em;margin-top:0.3rem;opacity:0.7}
+.lb-close{position:fixed;top:1.5rem;right:1.5rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--muted);background:rgba(13,13,13,0.6);border:1px solid var(--border);padding:0.5rem 1rem;cursor:none;transition:all 0.3s;z-index:510}
 .lb-close:hover{color:var(--accent);border-color:var(--accent)}
+.lb-zoom-ctrl{position:fixed;top:1.5rem;left:1.5rem;display:flex;gap:0.4rem;z-index:510}
+.lb-zoom-btn{font-family:var(--mono);font-size:0.8rem;font-weight:700;color:var(--muted);background:rgba(13,13,13,0.6);border:1px solid var(--border);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all 0.3s}
+.lb-zoom-btn:hover{color:var(--accent);border-color:var(--accent)}
+.lb-zoom-level{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.1em;color:var(--muted);background:rgba(13,13,13,0.6);border:1px solid var(--border);padding:0 0.75rem;height:36px;display:flex;align-items:center;min-width:60px;justify-content:center}
 .lb-nav{display:flex;gap:1rem}
 .lb-btn{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;color:var(--muted);background:none;border:1px solid var(--border);padding:0.5rem 1.25rem;cursor:none;transition:all 0.3s}
 .lb-btn:hover{color:var(--text);border-color:var(--text)}
@@ -186,10 +195,19 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 </div>
 <div id="lightbox">
   <button class="lb-close" id="lbClose">[ CLOSE x ]</button>
-  <img id="lbImg" src="" alt="">
+  <div class="lb-zoom-ctrl">
+    <button class="lb-zoom-btn" id="lbZoomOut" title="縮小">−</button>
+    <div class="lb-zoom-level" id="lbZoomLevel">100%</div>
+    <button class="lb-zoom-btn" id="lbZoomIn" title="放大">+</button>
+    <button class="lb-zoom-btn" id="lbZoomReset" title="重設">⤢</button>
+  </div>
+  <div class="lb-stage" id="lbStage">
+    <img id="lbImg" src="" alt="">
+  </div>
   <div class="lb-info">
     <div class="lb-company" id="lbCompany"></div>
     <div class="lb-title" id="lbTitle"></div>
+    <div class="lb-hint">CLICK IMAGE TO ZOOM · SCROLL TO ZOOM · DRAG TO PAN</div>
   </div>
   <div class="lb-nav">
     <button class="lb-btn" id="lbPrev">PREV</button>
@@ -385,44 +403,44 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
       </div>
 
       <!-- 008 新光人壽 -->
-      <div class="work-card" data-category="web" data-lightbox='["ShinKong_01.png","ShinKong_02.png","ShinKong_03.png","ShinKong_04.png","ShinKong_05.png","ShinKong_06.png","ShinKong_07.png","ShinKong_08.png"]' data-company="新光人壽投保平台" data-title="問答互動式線上投保平台">
-        <div class="work-img-wrap"><img src="ShinKong_01.png" alt="新光人壽"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Finance ]</div><div class="work-overlay-title">新光人壽<br>線上投保平台</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card" data-category="web" data-lightbox='["works/ShinKong_01.png","works/ShinKong_02.png","works/ShinKong_03.png","works/ShinKong_04.png","works/ShinKong_05.png","works/ShinKong_06.png","works/ShinKong_07.png","works/ShinKong_08.png"]' data-company="新光人壽投保平台" data-title="問答互動式線上投保平台">
+        <div class="work-img-wrap"><img src="works/ShinKong_01.png" alt="新光人壽"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Finance ]</div><div class="work-overlay-title">新光人壽<br>線上投保平台</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 008 ]</div><div class="work-company">新光人壽投保平台</div><div class="work-title">打破投保無法線上執行的界線・問答式互動</div><div class="work-desc">用問答方式幫助消費者選擇適當的保單，兼顧 RWD 手機版響應式設計。</div><div class="work-tags-row"><span class="work-tag">RWD</span><span class="work-tag">Finance</span><span class="work-tag">UX Flow</span></div></div>
       </div>
 
       <!-- 009 永豐銀行 -->
-      <div class="work-card" data-category="campaign" data-lightbox='["SinoPac_01.png","SinoPac_02.png"]' data-company="永豐海外債券投資" data-title="活動網站視覺規劃設計">
-        <div class="work-img-wrap"><img src="SinoPac_01.png" alt="永豐銀行"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Finance ]</div><div class="work-overlay-title">永豐銀行<br>海外債券投資活動網站</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card" data-category="campaign" data-lightbox='["works/SinoPac_01.png","works/SinoPac_02.png"]' data-company="永豐海外債券投資" data-title="活動網站視覺規劃設計">
+        <div class="work-img-wrap"><img src="works/SinoPac_01.png" alt="永豐銀行"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Finance ]</div><div class="work-overlay-title">永豐銀行<br>海外債券投資活動網站</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 009 ]</div><div class="work-company">永豐海外債券投資</div><div class="work-title">活動網站視覺規劃・插畫風格設計</div><div class="work-desc">以插畫角色傳達理財概念，清楚呈現兩大族群、三大優勢的資訊架構。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Finance</span><span class="work-tag">Illustration</span></div></div>
       </div>
 
       <!-- 010 Tripresso -->
-      <div class="work-card wide" data-category="web" data-lightbox='["Tripresso_01.png","Tripresso_02.png","Tripresso_03.png","Tripresso_04.png","Tripresso_05.png","Tripresso_06.png","Tripresso_07.png","Tripresso_08.png","Tripresso_09.png","Tripresso_10.png"]' data-company="Tripresso 旅遊咖" data-title="旅遊網站・多種行程版型設計">
-        <div class="work-img-wrap"><img src="Tripresso_01.png" alt="Tripresso"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Travel ]</div><div class="work-overlay-title">Tripresso 旅遊咖<br>旅遊網站・多種行程版型</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card wide" data-category="web" data-lightbox='["works/Tripresso_01.png","works/Tripresso_02.png","works/Tripresso_03.png","works/Tripresso_04.png","works/Tripresso_05.png","works/Tripresso_06.png","works/Tripresso_07.png","works/Tripresso_08.png","works/Tripresso_09.png","works/Tripresso_10.png"]' data-company="Tripresso 旅遊咖" data-title="旅遊網站・多種行程版型設計">
+        <div class="work-img-wrap"><img src="works/Tripresso_01.png" alt="Tripresso"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Travel ]</div><div class="work-overlay-title">Tripresso 旅遊咖<br>旅遊網站・多種行程版型</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 010 ]</div><div class="work-company">Tripresso 旅遊咖</div><div class="work-title">旅遊網站・多功能多版型的行程介紹設計</div><div class="work-desc">旅遊網站除影音平台外另一個多功能多項目的網站類型，光是行程介紹就有許多不同的組合選擇。</div><div class="work-tags-row"><span class="work-tag">Web Design</span><span class="work-tag">Travel</span><span class="work-tag">Multi-layout</span></div></div>
       </div>
 
       <!-- 011 勝利羽球 -->
-      <div class="work-card" data-category="web" data-lightbox='["victory_01.png","victory_02.png","victory_03.png","victory_04.png","victory_05.png"]' data-company="勝利羽球" data-title="產品官網・全程參與拍攝及製作">
-        <div class="work-img-wrap"><img src="victory_01.png" alt="勝利羽球"><div class="work-overlay"><div class="work-overlay-label">[ Product Site ]</div><div class="work-overlay-title">勝利羽球<br>產品官網全程製作</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card" data-category="web" data-lightbox='["works/victory_01.png","works/victory_02.png","works/victory_03.png","works/victory_04.png","works/victory_05.png"]' data-company="勝利羽球" data-title="產品官網・全程參與拍攝及製作">
+        <div class="work-img-wrap"><img src="works/victory_01.png" alt="勝利羽球"><div class="work-overlay"><div class="work-overlay-label">[ Product Site ]</div><div class="work-overlay-title">勝利羽球<br>產品官網全程製作</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 011 ]</div><div class="work-company">勝利羽球</div><div class="work-title">客戶新品產品網站・全程參與拍攝及製作</div><div class="work-desc">從攝影棚拍攝・與攝影師溝通細節・修圖到網站製作，全程參與每一個環節。</div><div class="work-tags-row"><span class="work-tag">Product Site</span><span class="work-tag">Photo Direction</span><span class="work-tag">Retouching</span></div></div>
       </div>
 
       <!-- 012 Toyota -->
-      <div class="work-card" data-category="campaign" data-lightbox='["toyota_01.png","toyota_02.png"]' data-company="Toyota" data-title="活動網站視覺設計">
-        <div class="work-img-wrap"><img src="toyota_01.png" alt="Toyota"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Automotive ]</div><div class="work-overlay-title">Toyota<br>活動網站視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card" data-category="campaign" data-lightbox='["works/toyota_01.png","works/toyota_02.png"]' data-company="Toyota" data-title="活動網站視覺設計">
+        <div class="work-img-wrap"><img src="works/toyota_01.png" alt="Toyota"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Automotive ]</div><div class="work-overlay-title">Toyota<br>活動網站視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 012 ]</div><div class="work-company">Toyota</div><div class="work-title">活動網站視覺設計</div><div class="work-desc">汽車品牌活動網站視覺規劃設計。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Automotive</span><span class="work-tag">Web Design</span></div></div>
       </div>
 
       <!-- 013 喜來登 -->
-      <div class="work-card" data-category="campaign" data-lightbox='["sheratonhotel_01.png","sheratonhotel_02.png"]' data-company="喜來登飯店" data-title="飯店活動網站視覺設計">
-        <div class="work-img-wrap"><img src="sheratonhotel_01.png" alt="喜來登"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Hospitality ]</div><div class="work-overlay-title">喜來登飯店<br>活動網站視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card" data-category="campaign" data-lightbox='["works/sheratonhotel_01.png","works/sheratonhotel_02.png"]' data-company="喜來登飯店" data-title="飯店活動網站視覺設計">
+        <div class="work-img-wrap"><img src="works/sheratonhotel_01.png" alt="喜來登"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Hospitality ]</div><div class="work-overlay-title">喜來登飯店<br>活動網站視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 013 ]</div><div class="work-company">喜來登飯店</div><div class="work-title">飯店活動網站視覺設計</div><div class="work-desc">飯店品牌活動網站視覺規劃，完整呈現品牌調性。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Hospitality</span><span class="work-tag">Web Design</span></div></div>
       </div>
 
       <!-- 014 OPPO -->
-      <div class="work-card wide" data-category="web" data-lightbox='["OPPO_01.png","OPPO_02.png","OPPO_03.png","OPPO_04.png"]' data-company="OPPO 護具" data-title="台灣護具品牌官網設計">
-        <div class="work-img-wrap"><img src="OPPO_01.png" alt="OPPO"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Healthcare ]</div><div class="work-overlay-title">OPPO 護具<br>台灣護具品牌官網</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card wide" data-category="web" data-lightbox='["works/OPPO_01.png","works/OPPO_02.png","works/OPPO_03.png","works/OPPO_04.png"]' data-company="OPPO 護具" data-title="台灣護具品牌官網設計">
+        <div class="work-img-wrap"><img src="works/OPPO_01.png" alt="OPPO"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Healthcare ]</div><div class="work-overlay-title">OPPO 護具<br>台灣護具品牌官網</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 014 ]</div><div class="work-company">OPPO 護具</div><div class="work-title">台灣護具品牌官網設計</div><div class="work-desc">台灣本土護具品牌官網視覺規劃，清楚呈現產品分類與品牌形象。</div><div class="work-tags-row"><span class="work-tag">Web Design</span><span class="work-tag">Healthcare</span><span class="work-tag">Branding</span></div></div>
       </div>
 
@@ -457,8 +475,8 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
       </div>
 
       <!-- 020 社群素材 -->
-      <div class="work-card wide" data-category="branding" data-lightbox='["SM_01.png","SM_02.png","SM_03.png","SM_04.png","SM_05.png","SM_06.png","SM_07.png","SM_08.png","SM_09.png","SM_10.png","SM_11.png","SM_12.png","SM_13.png","SM_14.png","SM_15.png","SM_16.png","SM_17.png","SM_18.png","SM_19.png","SM_20.png","SM_21.png","SM_22.png","SM_23.png","SM_24.png","SM_25.png","SM_26.png","SM_27.png","SM_28.png","SM_29.png","SM_30.png","SM_31.png","SM_32.png","SM_33.png"]' data-company="社群媒體素材" data-title="各品牌 Social Media 視覺設計">
-        <div class="work-img-wrap"><img src="SM_01.png" alt="Social Media"><div class="work-overlay"><div class="work-overlay-label">[ Branding · Social Media ]</div><div class="work-overlay-title">社群媒體素材<br>各品牌 FB・IG・LINE 視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card wide" data-category="branding" data-lightbox='["works/SM_01.png","works/SM_02.png","works/SM_03.png","works/SM_04.png","works/SM_05.png","works/SM_06.png","works/SM_07.png","works/SM_08.png","works/SM_09.png","works/SM_10.png","works/SM_11.png","works/SM_12.png","works/SM_13.png","works/SM_14.png","works/SM_15.png","works/SM_16.png","works/SM_17.png","works/SM_18.png","works/SM_19.png","works/SM_20.png","works/SM_21.png","works/SM_22.png","works/SM_23.png","works/SM_24.png","works/SM_25.png","works/SM_26.png","works/SM_27.png","works/SM_28.png","works/SM_29.png","works/SM_30.png","works/SM_31.png","works/SM_32.png","works/SM_33.png"]' data-company="社群媒體素材" data-title="各品牌 Social Media 視覺設計">
+        <div class="work-img-wrap"><img src="works/SM_01.png" alt="Social Media"><div class="work-overlay"><div class="work-overlay-label">[ Branding · Social Media ]</div><div class="work-overlay-title">社群媒體素材<br>各品牌 FB・IG・LINE 視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 020 ]</div><div class="work-company">社群媒體素材精選</div><div class="work-title">各品牌 FB・IG・LINE 社群視覺素材設計</div><div class="work-desc">從最早的 Yahoo Flash Banner、EDM 到 FB、IG、LINE，跨國不同國家的媒體素材。</div><div class="work-tags-row"><span class="work-tag">Social Media</span><span class="work-tag">FB / IG / LINE</span><span class="work-tag">Various Brands</span></div></div>
       </div>
 
@@ -579,28 +597,103 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
     document.querySelectorAll('.work-card').forEach(card=>{card.style.display=(f==='all'||card.dataset.category===f)?'flex':'none';});
   };
 });
-// Lightbox
+// Lightbox with Zoom + Pan
 const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCompany=document.getElementById('lbCompany'),lbTitle=document.getElementById('lbTitle');
+const lbStage=document.getElementById('lbStage'),lbZoomLevel=document.getElementById('lbZoomLevel');
 let currentImages=[],lbIdx=0;
+let zoom=1,panX=0,panY=0;
+const MIN_ZOOM=1,MAX_ZOOM=5;
+
+function applyTransform(){
+  lbImg.style.transform='translate('+panX+'px,'+panY+'px) scale('+zoom+')';
+  lbZoomLevel.textContent=Math.round(zoom*100)+'%';
+  if(zoom>1){lbStage.classList.add('zoomed');}else{lbStage.classList.remove('zoomed');panX=0;panY=0;lbImg.style.transform='';}
+}
+function resetZoom(){zoom=1;panX=0;panY=0;applyTransform();}
+function clampPan(){
+  if(zoom<=1)return;
+  const rect=lbStage.getBoundingClientRect();
+  const imgW=lbImg.naturalWidth*zoom*Math.min(rect.width/lbImg.naturalWidth,rect.height/lbImg.naturalHeight,1);
+  // simpler: just allow free pan within ±(scaled - stage) / 2
+  const sw=lbImg.offsetWidth*zoom,sh=lbImg.offsetHeight*zoom;
+  const maxX=Math.max(0,(sw-rect.width)/2),maxY=Math.max(0,(sh-rect.height)/2);
+  panX=Math.max(-maxX,Math.min(maxX,panX));
+  panY=Math.max(-maxY,Math.min(maxY,panY));
+}
+function loadImage(idx){
+  resetZoom();
+  lbImg.src=currentImages[idx];
+}
 document.querySelectorAll('.work-card').forEach(card=>{
   card.addEventListener('click',()=>{
     const raw=card.dataset.lightbox;if(!raw)return;
     currentImages=JSON.parse(raw);lbIdx=0;
+    resetZoom();
     lbImg.src=currentImages[0];
     lbCompany.textContent=card.dataset.company||'';
     lbTitle.textContent=card.dataset.title||'';
     lb.classList.add('open');
   });
 });
-document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
-document.getElementById('lbPrev').onclick=()=>{lbIdx=(lbIdx-1+currentImages.length)%currentImages.length;lbImg.src=currentImages[lbIdx];};
-document.getElementById('lbNext').onclick=()=>{lbIdx=(lbIdx+1)%currentImages.length;lbImg.src=currentImages[lbIdx];};
-lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open');});
+document.getElementById('lbClose').onclick=()=>{lb.classList.remove('open');resetZoom();};
+document.getElementById('lbPrev').onclick=()=>{lbIdx=(lbIdx-1+currentImages.length)%currentImages.length;loadImage(lbIdx);};
+document.getElementById('lbNext').onclick=()=>{lbIdx=(lbIdx+1)%currentImages.length;loadImage(lbIdx);};
+document.getElementById('lbZoomIn').onclick=()=>{zoom=Math.min(MAX_ZOOM,zoom*1.4);applyTransform();};
+document.getElementById('lbZoomOut').onclick=()=>{zoom=Math.max(MIN_ZOOM,zoom/1.4);applyTransform();};
+document.getElementById('lbZoomReset').onclick=resetZoom;
+
+// Click image to toggle zoom
+lbStage.addEventListener('click',e=>{
+  if(dragOccurred){dragOccurred=false;return;}
+  if(zoom>1){resetZoom();}else{
+    const rect=lbStage.getBoundingClientRect();
+    const cx=e.clientX-rect.left,cy=e.clientY-rect.top;
+    zoom=2.5;
+    // center the click point
+    panX=(rect.width/2-cx)*1.5;
+    panY=(rect.height/2-cy)*1.5;
+    applyTransform();clampPan();applyTransform();
+  }
+});
+
+// Wheel to zoom
+lbStage.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const delta=e.deltaY<0?1.15:1/1.15;
+  const newZoom=Math.max(MIN_ZOOM,Math.min(MAX_ZOOM,zoom*delta));
+  if(newZoom!==zoom){zoom=newZoom;applyTransform();clampPan();applyTransform();}
+},{passive:false});
+
+// Drag to pan
+let isDragging=false,dragStartX=0,dragStartY=0,dragOccurred=false;
+lbStage.addEventListener('mousedown',e=>{
+  if(zoom<=1)return;
+  isDragging=true;dragOccurred=false;
+  dragStartX=e.clientX-panX;dragStartY=e.clientY-panY;
+  lbStage.classList.add('dragging');
+});
+window.addEventListener('mousemove',e=>{
+  if(!isDragging)return;
+  panX=e.clientX-dragStartX;panY=e.clientY-dragStartY;
+  clampPan();applyTransform();
+  dragOccurred=true;
+});
+window.addEventListener('mouseup',()=>{
+  if(isDragging){isDragging=false;lbStage.classList.remove('dragging');setTimeout(()=>{dragOccurred=false;},50);}
+});
+
+// Click outside stage to close
+lb.addEventListener('click',e=>{
+  if(e.target===lb){lb.classList.remove('open');resetZoom();}
+});
 document.addEventListener('keydown',e=>{
   if(!lb.classList.contains('open'))return;
-  if(e.key==='Escape')lb.classList.remove('open');
-  if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+currentImages.length)%currentImages.length;lbImg.src=currentImages[lbIdx];}
-  if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%currentImages.length;lbImg.src=currentImages[lbIdx];}
+  if(e.key==='Escape'){lb.classList.remove('open');resetZoom();}
+  if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+currentImages.length)%currentImages.length;loadImage(lbIdx);}
+  if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%currentImages.length;loadImage(lbIdx);}
+  if(e.key==='+'||e.key==='='){zoom=Math.min(MAX_ZOOM,zoom*1.4);applyTransform();}
+  if(e.key==='-'){zoom=Math.max(MIN_ZOOM,zoom/1.4);applyTransform();}
+  if(e.key==='0'){resetZoom();}
 });
 </script>
 </body>
