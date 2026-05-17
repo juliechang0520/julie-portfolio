@@ -1,1 +1,607 @@
-Hello
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Julie Chang - Visual Designer Portfolio 2005~Present">
+<meta property="og:title" content="Julie Chang — Visual Designer">
+<title>Julie Chang — Visual Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0d0d;--bg2:#141414;--bg3:#1a1a1a;
+  --accent:#8fbe44;--text:#e8e4dc;--muted:#6b6860;--border:#2a2a2a;
+  --mono:'Space Mono',monospace;--sans:'Noto Sans TC',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none}
+.cursor{position:fixed;width:8px;height:8px;background:var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.1s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9998;transition:all 0.15s ease;opacity:0.6}
+#loader{position:fixed;inset:0;background:var(--bg);z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.loader-text{font-family:var(--mono);font-size:0.75rem;color:var(--muted);letter-spacing:0.3em}
+.loader-bar{width:200px;height:1px;background:var(--border);overflow:hidden}
+.loader-fill{height:100%;background:var(--accent);width:0;transition:width 0.05s linear}
+.loader-percent{font-family:var(--mono);font-size:2.5rem;color:var(--accent);letter-spacing:-0.05em}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;mix-blend-mode:difference}
+.nav-logo{font-family:var(--mono);font-size:0.8rem;color:var(--text);text-decoration:none;letter-spacing:0.2em;opacity:0.8}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:0.7rem;color:var(--text);text-decoration:none;letter-spacing:0.15em;opacity:0.6;transition:opacity 0.3s}
+.nav-links a:hover{opacity:1}
+.bracket{color:var(--accent);opacity:0.8}
+.nav-menu-btn{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:none}
+section{padding:8rem 3rem}
+.container{max-width:1200px;margin:0 auto}
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 3rem;position:relative;overflow:hidden}
+.hero-tag{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.3em;margin-bottom:2rem;opacity:0}
+.hero-title{font-family:var(--mono);font-size:clamp(3rem,8vw,8rem);font-weight:700;line-height:0.9;letter-spacing:-0.03em;margin-bottom:3rem;opacity:0}
+.hero-title .green{color:var(--accent)}
+.hero-title .block{display:block;overflow:hidden}
+.hero-title .inner{display:block;transform:translateY(110%)}
+.hero-sub{display:flex;gap:4rem;opacity:0}
+.hero-sub-item{display:flex;flex-direction:column;gap:0.5rem}
+.hero-sub-label{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:0.25em;text-transform:uppercase}
+.hero-sub-value{font-size:0.95rem;color:var(--text)}
+.hero-scroll{position:absolute;bottom:3rem;right:3rem;font-family:var(--mono);font-size:0.65rem;color:var(--muted);letter-spacing:0.2em;writing-mode:vertical-rl;display:flex;align-items:center;gap:1rem}
+.hero-scroll::before{content:'';width:1px;height:60px;background:var(--muted);display:block}
+.hero-bg-text{position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:20vw;font-weight:700;color:var(--border);pointer-events:none;user-select:none;z-index:-1}
+.hero-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--border)}
+#about{border-bottom:1px solid var(--border)}
+.section-header{display:flex;align-items:center;gap:2rem;margin-bottom:5rem}
+.section-num{font-family:var(--mono);font-size:0.65rem;color:var(--muted);letter-spacing:0.2em}
+.section-title{font-family:var(--mono);font-size:0.8rem;letter-spacing:0.2em;color:var(--text)}
+.section-line{flex:1;height:1px;background:var(--border)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.about-text h2{font-family:var(--mono);font-size:clamp(1.5rem,3vw,2.5rem);font-weight:700;line-height:1.2;margin-bottom:2rem}
+.about-text h2 em{font-style:normal;color:var(--accent)}
+.about-text p{font-size:0.9rem;line-height:1.9;color:var(--muted);margin-bottom:1rem}
+.skills-tags{display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1.5rem}
+.tag{font-family:var(--mono);font-size:0.65rem;padding:0.5rem 1rem;border:1px solid var(--border);color:var(--muted);letter-spacing:0.1em;transition:all 0.3s}
+.tag:hover{border-color:var(--accent);color:var(--accent)}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.stat{background:var(--bg);padding:2rem;display:flex;flex-direction:column;gap:0.5rem}
+.stat-num{font-family:var(--mono);font-size:2.5rem;font-weight:700;color:var(--accent)}
+.stat-label{font-size:0.75rem;color:var(--muted);letter-spacing:0.1em}
+#experience{border-bottom:1px solid var(--border)}
+.exp-item{display:grid;grid-template-columns:200px 1fr;gap:3rem;padding:3rem 0;border-bottom:1px solid var(--border)}
+.exp-item:last-child{border-bottom:none}
+.exp-period{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.1em;padding-top:0.2rem}
+.exp-company{font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem;transition:color 0.3s}
+.exp-item:hover .exp-company{color:var(--accent)}
+.exp-role{font-size:0.8rem;color:var(--muted);margin-bottom:1rem}
+.exp-tags{display:flex;flex-wrap:wrap;gap:0.5rem}
+.exp-tag{font-family:var(--mono);font-size:0.6rem;padding:0.3rem 0.75rem;border:1px solid var(--border);color:var(--muted)}
+#works{border-bottom:1px solid var(--border);padding-bottom:0}
+#works .container{margin-bottom:4rem}
+/* Password Gate */
+#pw-overlay{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;padding:8rem 3rem;border-top:1px solid var(--border)}
+.pw-icon{font-size:3rem;opacity:0.2}
+.pw-label{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.25em;text-align:center;line-height:2.2}
+.pw-form{display:flex;border:1px solid var(--border)}
+.pw-input{font-family:var(--mono);font-size:0.8rem;padding:0.9rem 1.5rem;background:transparent;border:none;color:var(--text);outline:none;width:220px;letter-spacing:0.1em}
+.pw-input::placeholder{color:var(--muted);opacity:0.5}
+.pw-btn{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;padding:0.9rem 1.5rem;background:none;border:none;border-left:1px solid var(--border);color:var(--muted);cursor:none;transition:all 0.3s}
+.pw-btn:hover{background:var(--accent);color:var(--bg)}
+.pw-error{font-family:var(--mono);font-size:0.65rem;color:#e05555;letter-spacing:0.15em;height:1rem;transition:opacity 0.3s;opacity:0}
+.pw-error.show{opacity:1}
+#works-content{display:none}
+/* Works grid */
+.works-filter{display:flex;gap:0;margin-bottom:4rem;border:1px solid var(--border);width:fit-content;flex-wrap:wrap}
+.filter-btn{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;padding:0.75rem 1.5rem;background:none;border:none;color:var(--muted);cursor:none;transition:all 0.3s;border-right:1px solid var(--border)}
+.filter-btn:last-child{border-right:none}
+.filter-btn.active,.filter-btn:hover{background:var(--accent);color:var(--bg)}
+.works-masonry{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.work-card{background:var(--bg);position:relative;overflow:hidden;cursor:none;display:flex;flex-direction:column}
+.work-card.wide{grid-column:span 2}
+.work-img-wrap{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:var(--bg3);flex-shrink:0}
+.work-card.wide .work-img-wrap{aspect-ratio:21/9}
+.work-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1),filter 0.4s;filter:grayscale(20%)}
+.work-card:hover .work-img-wrap img{transform:scale(1.06);filter:grayscale(0%)}
+.work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,0.95) 0%,rgba(13,13,13,0.2) 60%,transparent 100%);opacity:0;transition:opacity 0.4s;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;pointer-events:none}
+.work-card:hover .work-overlay{opacity:1}
+.work-overlay-label{font-family:var(--mono);font-size:0.58rem;color:var(--accent);letter-spacing:0.2em;margin-bottom:0.4rem}
+.work-overlay-title{font-family:var(--mono);font-size:0.88rem;font-weight:700;color:var(--text);line-height:1.3}
+.work-overlay-arrow{position:absolute;top:1rem;right:1rem;font-family:var(--mono);font-size:0.75rem;color:var(--accent);background:rgba(13,13,13,0.8);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid var(--accent)}
+.work-info{padding:1.5rem;display:flex;flex-direction:column;gap:0.6rem;flex:1}
+.work-num{font-family:var(--mono);font-size:0.55rem;color:var(--muted);letter-spacing:0.2em}
+.work-company{font-family:var(--mono);font-size:0.95rem;font-weight:700;color:var(--accent)}
+.work-title{font-size:0.78rem;color:var(--text);line-height:1.6}
+.work-desc{font-size:0.72rem;color:var(--muted);line-height:1.75;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.work-tags-row{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:auto;padding-top:0.75rem}
+.work-tag{font-family:var(--mono);font-size:0.55rem;padding:0.2rem 0.55rem;border:1px solid var(--border);color:var(--muted)}
+/* Lightbox */
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem}
+#lightbox.open{display:flex}
+#lightbox img{max-width:88vw;max-height:72vh;object-fit:contain;border:1px solid var(--border)}
+.lb-info{text-align:center}
+.lb-company{font-family:var(--mono);font-size:0.8rem;color:var(--accent);margin-bottom:0.3rem}
+.lb-title{font-size:0.82rem;color:var(--text)}
+.lb-close{position:fixed;top:2rem;right:2rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--muted);background:none;border:1px solid var(--border);padding:0.5rem 1rem;cursor:none;transition:all 0.3s}
+.lb-close:hover{color:var(--accent);border-color:var(--accent)}
+.lb-nav{display:flex;gap:1rem}
+.lb-btn{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;color:var(--muted);background:none;border:1px solid var(--border);padding:0.5rem 1.25rem;cursor:none;transition:all 0.3s}
+.lb-btn:hover{color:var(--text);border-color:var(--text)}
+#contact{text-align:center;padding:10rem 3rem}
+.contact-label{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.3em;margin-bottom:2rem}
+.contact-title{font-family:var(--mono);font-size:clamp(2rem,5vw,5rem);font-weight:700;margin-bottom:3rem;line-height:1}
+.contact-title em{font-style:normal;color:var(--accent)}
+.contact-btn{display:inline-block;font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;padding:1.25rem 3rem;border:1px solid var(--text);color:var(--text);text-decoration:none;transition:all 0.3s}
+.contact-btn:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-family:var(--mono);font-size:0.65rem;color:var(--muted);letter-spacing:0.1em}
+.footer-links{display:flex;gap:2rem}
+.footer-links a{font-family:var(--mono);font-size:0.65rem;color:var(--muted);text-decoration:none;transition:color 0.3s}
+.footer-links a:hover{color:var(--accent)}
+.mobile-nav{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;flex-direction:column;justify-content:center;padding:3rem;opacity:0;pointer-events:none;transition:opacity 0.4s}
+.mobile-nav.open{opacity:1;pointer-events:all}
+.mobile-nav-close{position:absolute;top:2rem;right:2rem;background:none;border:none;color:var(--text);font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;cursor:none}
+.mobile-nav-links{list-style:none;display:flex;flex-direction:column;gap:2rem}
+.mobile-nav-links a{font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--text);text-decoration:none;transition:color 0.3s}
+.mobile-nav-links a:hover{color:var(--accent)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}.reveal-delay-2{transition-delay:0.2s}.reveal-delay-3{transition-delay:0.3s}
+@media(max-width:900px){.works-masonry{grid-template-columns:repeat(2,1fr)}.work-card.wide{grid-column:span 2}}
+@media(max-width:600px){
+  nav{padding:1.5rem 1.5rem}.nav-links{display:none}.nav-menu-btn{display:block}
+  section{padding:5rem 1.5rem}#hero{padding:0 1.5rem}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .works-masonry{grid-template-columns:1fr}
+  .work-card.wide{grid-column:span 1}.work-card.wide .work-img-wrap{aspect-ratio:16/10}
+  .exp-item{grid-template-columns:1fr;gap:0.5rem}
+  .hero-sub{flex-wrap:wrap;gap:2rem}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+  .hero-scroll{display:none}
+  .pw-form{flex-direction:column}.pw-input{width:100%}.pw-btn{border-left:none;border-top:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div id="loader">
+  <div class="loader-percent" id="loaderPercent">0%</div>
+  <div class="loader-bar"><div class="loader-fill" id="loaderFill"></div></div>
+  <div class="loader-text">Loading Portfolio</div>
+</div>
+<nav>
+  <a href="#hero" class="nav-logo"><span class="bracket">(</span>J.JULIE<span class="bracket">)</span></a>
+  <ul class="nav-links">
+    <li><a href="#about"><span class="bracket">(</span>About<span class="bracket">)</span></a></li>
+    <li><a href="#experience"><span class="bracket">(</span>Experience<span class="bracket">)</span></a></li>
+    <li><a href="#works"><span class="bracket">(</span>Works<span class="bracket">)</span></a></li>
+    <li><a href="#contact"><span class="bracket">(</span>Contact<span class="bracket">)</span></a></li>
+  </ul>
+  <button class="nav-menu-btn" id="menuBtn">☰</button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" id="menuClose">[ CLOSE ]</button>
+  <ul class="mobile-nav-links">
+    <li><a href="#about" onclick="closeMobileNav()"><span class="bracket">(</span>About<span class="bracket">)</span></a></li>
+    <li><a href="#experience" onclick="closeMobileNav()"><span class="bracket">(</span>Experience<span class="bracket">)</span></a></li>
+    <li><a href="#works" onclick="closeMobileNav()"><span class="bracket">(</span>Works<span class="bracket">)</span></a></li>
+    <li><a href="#contact" onclick="closeMobileNav()"><span class="bracket">(</span>Contact<span class="bracket">)</span></a></li>
+  </ul>
+</div>
+<div id="lightbox">
+  <button class="lb-close" id="lbClose">[ CLOSE x ]</button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-info">
+    <div class="lb-company" id="lbCompany"></div>
+    <div class="lb-title" id="lbTitle"></div>
+  </div>
+  <div class="lb-nav">
+    <button class="lb-btn" id="lbPrev">PREV</button>
+    <button class="lb-btn" id="lbNext">NEXT</button>
+  </div>
+</div>
+<!-- Hero -->
+<section id="hero">
+  <div class="hero-bg-text">VD</div>
+  <p class="hero-tag" id="heroTag">[ VISUAL DESIGNER · 2005 ~ PRESENT ]</p>
+  <h1 class="hero-title" id="heroTitle">
+    <span class="block"><span class="inner">JULIE</span></span>
+    <span class="block"><span class="inner green">CHANG</span></span>
+  </h1>
+  <div class="hero-sub" id="heroSub">
+    <div class="hero-sub-item"><span class="hero-sub-label">Speciality</span><span class="hero-sub-value">Web Design · App Design</span></div>
+    <div class="hero-sub-item"><span class="hero-sub-label">Location</span><span class="hero-sub-value">Taiwan</span></div>
+    <div class="hero-sub-item"><span class="hero-sub-label">Experience</span><span class="hero-sub-value">20+ Years</span></div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+  <div class="hero-line"></div>
+</section>
+<!-- About -->
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">( ABOUT )</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="reveal">從視覺設計出發，<br><em>用介面說故事</em></h2>
+        <p class="reveal reveal-delay-1">擁有超過 20 年的視覺設計經驗，從平面到數位，從品牌識別到複雜的多平台應用程式介面，持續在每一個專案中追求設計與使用者體驗的最佳平衡點。</p>
+        <p class="reveal reveal-delay-2">曾任職於數位設計公司及新創公司，服務過汽車、科技、影音串流、旅遊、金融、美妝等各產業品牌，擅長在複雜的需求中找到清晰的設計語言。</p>
+        <div class="skills-tags reveal reveal-delay-3">
+          <span class="tag">專案管理</span><span class="tag">平面設計</span><span class="tag">RWD網站設計</span>
+          <span class="tag">App 設計</span><span class="tag">網頁切版</span><span class="tag">視覺規劃</span>
+          <span class="tag">活動網站</span><span class="tag">電商平台</span><span class="tag">媒體素材</span>
+        </div>
+      </div>
+      <div class="about-stats reveal reveal-delay-2">
+        <div class="stat"><span class="stat-num">20+</span><span class="stat-label">Years of Experience</span></div>
+        <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Projects Delivered</span></div>
+        <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Passion for Design</span></div>
+        <div class="stat"><span class="stat-num">AI</span><span class="stat-label">Digital Creation</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Experience -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">( EXPERIENCE )</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">2022 ~ Present</div>
+      <div>
+        <div class="exp-company">傳產數位行銷</div>
+        <div class="exp-role">數位行銷設計・視覺規劃・廣告素材・社群媒體設計</div>
+        <div class="exp-tags"><span class="exp-tag">Digital Marketing</span><span class="exp-tag">Visual Design</span><span class="exp-tag">Ad Creative</span><span class="exp-tag">Social Media</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-1">
+      <div class="exp-period">2016 ~ 2021</div>
+      <div>
+        <div class="exp-company">數位設計公司</div>
+        <div class="exp-role">視覺設計・專案管理・RWD網站・App 介面・網頁切版</div>
+        <div class="exp-tags"><span class="exp-tag">Visual Design</span><span class="exp-tag">Project Management</span><span class="exp-tag">RWD</span><span class="exp-tag">App UI</span><span class="exp-tag">Front-end Slicing</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-2">
+      <div class="exp-period">2015 ~ 2016</div>
+      <div>
+        <div class="exp-company">新創公司</div>
+        <div class="exp-role">UI/UX 設計・使用者體驗・介面原型製作</div>
+        <div class="exp-tags"><span class="exp-tag">UI Design</span><span class="exp-tag">UX Design</span><span class="exp-tag">Prototyping</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">2012 ~ 2015</div>
+      <div>
+        <div class="exp-company">數位設計公司</div>
+        <div class="exp-role">視覺設計・官網設計・活動網站・媒體素材製作</div>
+        <div class="exp-tags"><span class="exp-tag">Visual Design</span><span class="exp-tag">Official Website</span><span class="exp-tag">Campaign Site</span><span class="exp-tag">Media Assets</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-1">
+      <div class="exp-period">2009 ~ 2012</div>
+      <div>
+        <div class="exp-company">電商數位行銷公司</div>
+        <div class="exp-role">視覺設計・電商頁面・活動頁・EDM・Banner 製作</div>
+        <div class="exp-tags"><span class="exp-tag">Visual Design</span><span class="exp-tag">E-commerce</span><span class="exp-tag">EDM</span><span class="exp-tag">Campaign</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal reveal-delay-2">
+      <div class="exp-period">2006 ~ 2009</div>
+      <div>
+        <div class="exp-company">傳產</div>
+        <div class="exp-role">視覺設計・品牌識別・平面設計・印刷品製作</div>
+        <div class="exp-tags"><span class="exp-tag">Visual Design</span><span class="exp-tag">Branding</span><span class="exp-tag">Graphic Design</span><span class="exp-tag">Print</span></div>
+      </div>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-period">2005 ~ 2006</div>
+      <div>
+        <div class="exp-company">科技公司研發部門</div>
+        <div class="exp-role">視覺設計・產品介面・使用者體驗規劃</div>
+        <div class="exp-tags"><span class="exp-tag">Visual Design</span><span class="exp-tag">Product UI</span><span class="exp-tag">UX Planning</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Works -->
+<section id="works">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">( SELECTED WORKS )</span>
+      <div class="section-line"></div>
+    </div>
+  </div>
+  <!-- Password Gate -->
+  <div id="pw-overlay">
+    <div class="pw-icon">&#128274;</div>
+    <div class="pw-label">
+      [ WORKS · PASSWORD REQUIRED ]<br>
+      此區域需要密碼才能觀看作品集
+    </div>
+    <div class="pw-form">
+      <input class="pw-input" id="pwInput" type="password" placeholder="Enter password" autocomplete="off">
+      <button class="pw-btn" id="pwBtn">[ ENTER ]</button>
+    </div>
+    <div class="pw-error" id="pwError">密碼錯誤，請再試一次</div>
+  </div>
+  <!-- Works Content (hidden until unlocked) -->
+  <div id="works-content">
+    <div class="container" style="margin-bottom:4rem">
+      <div class="works-filter">
+        <button class="filter-btn active" data-filter="all">ALL</button>
+        <button class="filter-btn" data-filter="web">WEB</button>
+        <button class="filter-btn" data-filter="app">APP</button>
+        <button class="filter-btn" data-filter="campaign">CAMPAIGN</button>
+        <button class="filter-btn" data-filter="branding">BRANDING</button>
+        <button class="filter-btn" data-filter="ai">AI 創作</button>
+      </div>
+    </div>
+    <div class="works-masonry" id="worksMasonry">
+
+      <!-- 001 Audi -->
+      <div class="work-card wide" data-category="web" data-lightbox='["works/Audi_01.png","works/Audi_02.png","works/Audi_03.png","works/Audi_04.png"]' data-company="Audi 嚴選中古車" data-title="中古車買賣網站・多種類複選搜尋介面">
+        <div class="work-img-wrap"><img src="works/Audi_01.png" alt="Audi"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · RWD ]</div><div class="work-overlay-title">Audi 嚴選中古車<br>多種類搜尋介面</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 001 ]</div><div class="work-company">Audi 嚴選中古車</div><div class="work-title">中古車買賣網站・多種類複選的搜尋介面</div><div class="work-desc">以使用者可以找到心目中理想車子為目標，討論所有可搜尋項目的加入方式，預留未來擴充性。</div><div class="work-tags-row"><span class="work-tag">RWD</span><span class="work-tag">UX Design</span><span class="work-tag">Tablet UI</span></div></div>
+      </div>
+
+      <!-- 002 GagaOOLala -->
+      <div class="work-card" data-category="app" data-lightbox='["works/GagaOOLala_10.png","works/GagaOOLala_01.png","works/GagaOOLala_02.png","works/GagaOOLala_03.png","works/GagaOOLala_04.png","works/GagaOOLala_05.png","works/GagaOOLala_06.png","works/GagaOOLala_07.png","works/GagaOOLala_08.png","works/GagaOOLala_09.png"]' data-company="GagaOOLala 影音平台" data-title="跨國多螢影音平台 iOS / Android / TV">
+        <div class="work-img-wrap"><img src="works/GagaOOLala_10.png" alt="GagaOOLala"><div class="work-overlay"><div class="work-overlay-label">[ App Design · Multi-screen ]</div><div class="work-overlay-title">GagaOOLala<br>跨國多螢影音平台</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 002 ]</div><div class="work-company">GagaOOLala 影音平台</div><div class="work-title">跨國多螢影音平台・iOS / Android / TV 介面規劃</div><div class="work-desc">視覺設計規劃，考量資安、金流、跨國使用、不同載具差異等多面向因素。</div><div class="work-tags-row"><span class="work-tag">App Design</span><span class="work-tag">iOS/Android</span><span class="work-tag">TV UI</span></div></div>
+      </div>
+
+      <!-- 003 BigbigC -->
+      <div class="work-card" data-category="app" data-lightbox='["works/BigbigC_02.png","works/BigbigC_01.png","works/BigbigC_03.png","works/BigbigC_04.png","works/BigbigC_05.png","works/BigbigC_06.png","works/BigbigC_07.png"]' data-company="BigbigC 香港影音平台" data-title="多螢平台開發・訂閱制度・儲值系統">
+        <div class="work-img-wrap"><img src="works/BigbigC_02.png" alt="BigbigC"><div class="work-overlay"><div class="work-overlay-label">[ App Design · Subscription ]</div><div class="work-overlay-title">BigbigC<br>香港影音平台</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 003 ]</div><div class="work-company">BigbigC 香港影音平台</div><div class="work-title">多螢平台開發・訂閱制度・儲值系統介面</div><div class="work-desc">因港劇類別多，加上訂閱、儲值等多種觀看模式，介面設計挑戰多樣。</div><div class="work-tags-row"><span class="work-tag">App Design</span><span class="work-tag">Multi-screen</span><span class="work-tag">Subscription</span></div></div>
+      </div>
+
+      <!-- 004 Ballantines -->
+      <div class="work-card wide" data-category="campaign" data-lightbox='["works/Ballantine_s_05.png","works/Ballantine_s_01.png","works/Ballantine_s_02.png","works/Ballantine_s_03.png","works/Ballantine_s_04.png","works/Ballantine_s_06.png","works/Ballantine_s_07.png","works/Ballantine_s_08.png"]' data-company="百齡壇 Ballantine's" data-title="手機活動網站・AR 體驗・品酒會">
+        <div class="work-img-wrap"><img src="works/Ballantine_s_05.png" alt="Ballantines"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Mobile ]</div><div class="work-overlay-title">百齡壇 Ballantine's<br>手機活動網站・AR 體驗</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 004 ]</div><div class="work-company">百齡壇 Ballantine's</div><div class="work-title">手機活動網站・光畫體驗・AR 體驗・品酒會場次</div><div class="work-desc">光畫體驗區・浮空投影 &amp; AR 體驗區・品酒會活動完整視覺規劃。</div><div class="work-tags-row"><span class="work-tag">Mobile Site</span><span class="work-tag">Campaign</span><span class="work-tag">Event</span></div></div>
+      </div>
+
+      <!-- 005 AVEDA -->
+      <div class="work-card" data-category="web" data-lightbox='["works/Aveda_07.png","works/Aveda_01.png","works/Aveda_02.png"]' data-company="肯夢 AVEDA" data-title="官網改版視覺規劃設計">
+        <div class="work-img-wrap"><img src="works/Aveda_07.png" alt="AVEDA"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Beauty ]</div><div class="work-overlay-title">肯夢 AVEDA<br>官網改版視覺規劃</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 005 ]</div><div class="work-company">肯夢 AVEDA</div><div class="work-title">官網改版視覺規劃設計・RWD・手機版</div><div class="work-desc">從首頁到商品頁的完整改版，含最佳銷售商品、專業服務、Lifestyle 各區塊。</div><div class="work-tags-row"><span class="work-tag">RWD</span><span class="work-tag">Visual Planning</span><span class="work-tag">Beauty</span></div></div>
+      </div>
+
+      <!-- 006 NVIDIA -->
+      <div class="work-card" data-category="app" data-lightbox='["works/NVIDIA_01.png","works/NVIDIA_03.png","works/NVIDIA_04.png","works/NVIDIA_05.png","works/NVIDIA_06.png","works/NVIDIA_07.png","works/NVIDIA_08.png","works/NVIDIA_09.png","works/NVIDIA_10.png"]' data-company="Nvidia 小程序" data-title="跨國微博小程序設計">
+        <div class="work-img-wrap"><img src="works/NVIDIA_01.png" alt="NVIDIA"><div class="work-overlay"><div class="work-overlay-label">[ App Design · Cross-border ]</div><div class="work-overlay-title">Nvidia<br>跨國微博小程序</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 006 ]</div><div class="work-company">Nvidia 小程序</div><div class="work-title">跨國製作的微博小程序・中國特定平台開發</div><div class="work-desc">需遵守跨國企業設計規範，解決不同地區平台使用習慣差異。</div><div class="work-tags-row"><span class="work-tag">Mini Program</span><span class="work-tag">WeChat</span><span class="work-tag">Cross-border</span></div></div>
+      </div>
+
+      <!-- 007 KIRIN -->
+      <div class="work-card wide" data-category="campaign" data-lightbox='["works/KIRIN_07.png","works/KIRIN_01.png","works/KIRIN_02.png","works/KIRIN_03.png","works/KIRIN_04.png","works/KIRIN_05.png","works/KIRIN_06.png","works/KIRIN_08.png"]' data-company="KIRIN" data-title="官網改版・多款季節活動網站">
+        <div class="work-img-wrap"><img src="works/KIRIN_07.png" alt="KIRIN"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Seasonal ]</div><div class="work-overlay-title">KIRIN<br>官網改版・季節限定活動網站系列</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 007 ]</div><div class="work-company">KIRIN</div><div class="work-title">官網改版・多款季節限定活動網站・產品頁設計</div><div class="work-desc">知名日本飲料廠商，規劃可彈性更新季節產品的首頁；聖誕節活動製作類似逐格動畫的互動網站。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Seasonal</span><span class="work-tag">Product Page</span></div></div>
+      </div>
+
+      <!-- 008 新光人壽 -->
+      <div class="work-card" data-category="web" data-lightbox='["ShinKong_01.png","ShinKong_02.png","ShinKong_03.png","ShinKong_04.png","ShinKong_05.png","ShinKong_06.png","ShinKong_07.png","ShinKong_08.png"]' data-company="新光人壽投保平台" data-title="問答互動式線上投保平台">
+        <div class="work-img-wrap"><img src="ShinKong_01.png" alt="新光人壽"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Finance ]</div><div class="work-overlay-title">新光人壽<br>線上投保平台</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 008 ]</div><div class="work-company">新光人壽投保平台</div><div class="work-title">打破投保無法線上執行的界線・問答式互動</div><div class="work-desc">用問答方式幫助消費者選擇適當的保單，兼顧 RWD 手機版響應式設計。</div><div class="work-tags-row"><span class="work-tag">RWD</span><span class="work-tag">Finance</span><span class="work-tag">UX Flow</span></div></div>
+      </div>
+
+      <!-- 009 永豐銀行 -->
+      <div class="work-card" data-category="campaign" data-lightbox='["SinoPac_01.png","SinoPac_02.png"]' data-company="永豐海外債券投資" data-title="活動網站視覺規劃設計">
+        <div class="work-img-wrap"><img src="SinoPac_01.png" alt="永豐銀行"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Finance ]</div><div class="work-overlay-title">永豐銀行<br>海外債券投資活動網站</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 009 ]</div><div class="work-company">永豐海外債券投資</div><div class="work-title">活動網站視覺規劃・插畫風格設計</div><div class="work-desc">以插畫角色傳達理財概念，清楚呈現兩大族群、三大優勢的資訊架構。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Finance</span><span class="work-tag">Illustration</span></div></div>
+      </div>
+
+      <!-- 010 Tripresso -->
+      <div class="work-card wide" data-category="web" data-lightbox='["Tripresso_01.png","Tripresso_02.png","Tripresso_03.png","Tripresso_04.png","Tripresso_05.png","Tripresso_06.png","Tripresso_07.png","Tripresso_08.png","Tripresso_09.png","Tripresso_10.png"]' data-company="Tripresso 旅遊咖" data-title="旅遊網站・多種行程版型設計">
+        <div class="work-img-wrap"><img src="Tripresso_01.png" alt="Tripresso"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Travel ]</div><div class="work-overlay-title">Tripresso 旅遊咖<br>旅遊網站・多種行程版型</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 010 ]</div><div class="work-company">Tripresso 旅遊咖</div><div class="work-title">旅遊網站・多功能多版型的行程介紹設計</div><div class="work-desc">旅遊網站除影音平台外另一個多功能多項目的網站類型，光是行程介紹就有許多不同的組合選擇。</div><div class="work-tags-row"><span class="work-tag">Web Design</span><span class="work-tag">Travel</span><span class="work-tag">Multi-layout</span></div></div>
+      </div>
+
+      <!-- 011 勝利羽球 -->
+      <div class="work-card" data-category="web" data-lightbox='["victory_01.png","victory_02.png","victory_03.png","victory_04.png","victory_05.png"]' data-company="勝利羽球" data-title="產品官網・全程參與拍攝及製作">
+        <div class="work-img-wrap"><img src="victory_01.png" alt="勝利羽球"><div class="work-overlay"><div class="work-overlay-label">[ Product Site ]</div><div class="work-overlay-title">勝利羽球<br>產品官網全程製作</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 011 ]</div><div class="work-company">勝利羽球</div><div class="work-title">客戶新品產品網站・全程參與拍攝及製作</div><div class="work-desc">從攝影棚拍攝・與攝影師溝通細節・修圖到網站製作，全程參與每一個環節。</div><div class="work-tags-row"><span class="work-tag">Product Site</span><span class="work-tag">Photo Direction</span><span class="work-tag">Retouching</span></div></div>
+      </div>
+
+      <!-- 012 Toyota -->
+      <div class="work-card" data-category="campaign" data-lightbox='["toyota_01.png","toyota_02.png"]' data-company="Toyota" data-title="活動網站視覺設計">
+        <div class="work-img-wrap"><img src="toyota_01.png" alt="Toyota"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Automotive ]</div><div class="work-overlay-title">Toyota<br>活動網站視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 012 ]</div><div class="work-company">Toyota</div><div class="work-title">活動網站視覺設計</div><div class="work-desc">汽車品牌活動網站視覺規劃設計。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Automotive</span><span class="work-tag">Web Design</span></div></div>
+      </div>
+
+      <!-- 013 喜來登 -->
+      <div class="work-card" data-category="campaign" data-lightbox='["sheratonhotel_01.png","sheratonhotel_02.png"]' data-company="喜來登飯店" data-title="飯店活動網站視覺設計">
+        <div class="work-img-wrap"><img src="sheratonhotel_01.png" alt="喜來登"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Hospitality ]</div><div class="work-overlay-title">喜來登飯店<br>活動網站視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 013 ]</div><div class="work-company">喜來登飯店</div><div class="work-title">飯店活動網站視覺設計</div><div class="work-desc">飯店品牌活動網站視覺規劃，完整呈現品牌調性。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Hospitality</span><span class="work-tag">Web Design</span></div></div>
+      </div>
+
+      <!-- 014 OPPO -->
+      <div class="work-card wide" data-category="web" data-lightbox='["OPPO_01.png","OPPO_02.png","OPPO_03.png","OPPO_04.png"]' data-company="OPPO 護具" data-title="台灣護具品牌官網設計">
+        <div class="work-img-wrap"><img src="OPPO_01.png" alt="OPPO"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Healthcare ]</div><div class="work-overlay-title">OPPO 護具<br>台灣護具品牌官網</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 014 ]</div><div class="work-company">OPPO 護具</div><div class="work-title">台灣護具品牌官網設計</div><div class="work-desc">台灣本土護具品牌官網視覺規劃，清楚呈現產品分類與品牌形象。</div><div class="work-tags-row"><span class="work-tag">Web Design</span><span class="work-tag">Healthcare</span><span class="work-tag">Branding</span></div></div>
+      </div>
+
+      <!-- 015 LP33 -->
+      <div class="work-card" data-category="web" data-lightbox='["works/LP33_01.png","works/LP33_02.png","works/LP33_03.png","works/LP33_04.png"]' data-company="LP33" data-title="保健品官網・電商流程設計">
+        <div class="work-img-wrap"><img src="works/LP33_01.png" alt="LP33"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · Healthcare ]</div><div class="work-overlay-title">LP33<br>保健品官網・電商設計</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 015 ]</div><div class="work-company">LP33</div><div class="work-title">保健品官網設計・電商購物流程規劃</div><div class="work-desc">官網首頁到產品體驗方案頁、購物車、FAQ 完整電商流程設計。</div><div class="work-tags-row"><span class="work-tag">Web Design</span><span class="work-tag">E-commerce</span><span class="work-tag">Healthcare</span></div></div>
+      </div>
+
+      <!-- 016 五月花 -->
+      <div class="work-card" data-category="web" data-lightbox='["works/mayflower_01.png","works/mayflower_02.png"]' data-company="五月花" data-title="一頁式官網設計">
+        <div class="work-img-wrap"><img src="works/mayflower_01.png" alt="五月花"><div class="work-overlay"><div class="work-overlay-label">[ Web Design · FMCG ]</div><div class="work-overlay-title">五月花<br>一頁式官網設計</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 016 ]</div><div class="work-company">五月花</div><div class="work-title">以家人情感為溝通出發點的一頁式網站</div><div class="work-desc">產品改版，專案與知名攝影師合作，完整呈現品牌溫度與家庭情感。</div><div class="work-tags-row"><span class="work-tag">One-page</span><span class="work-tag">Photo Direction</span><span class="work-tag">FMCG</span></div></div>
+      </div>
+
+      <!-- 017 活動網站精選 -->
+      <div class="work-card wide" data-category="campaign" data-lightbox='["works/EVENT_06.png","works/EVENT_01.png","works/EVENT_02.png","works/EVENT_03.png","works/EVENT_04.png","works/EVENT_05.png","works/FIN_01.png","works/FIN_02.png","works/Hami_01.png","works/Hami_02.png"]' data-company="活動網站精選" data-title="各品牌活動網站視覺設計">
+        <div class="work-img-wrap"><img src="works/EVENT_06.png" alt="活動網站"><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Various ]</div><div class="work-overlay-title">活動網站精選<br>各品牌活動視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 017 ]</div><div class="work-company">活動網站精選</div><div class="work-title">Infiniti・五月花・魔利・未來學習・普拿疼・黑松 FIN・Hami</div><div class="work-desc">活動網站就是一個搶時間跟話題來吸引消費者，網站通常可以做得比較有趣活潑。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Interactive</span><span class="work-tag">Various Brands</span></div></div>
+      </div>
+
+      <!-- 018 ASUS -->
+      <div class="work-card" data-category="branding" data-lightbox='["works/ASUS_01.png","works/ASUS_02.png","works/ASUS_03.png","works/ASUS_04.png","works/ASUS_05.png"]' data-company="ASUS" data-title="平面設計・電商視覺設計">
+        <div class="work-img-wrap"><img src="works/ASUS_01.png" alt="ASUS"><div class="work-overlay"><div class="work-overlay-label">[ Branding · E-commerce ]</div><div class="work-overlay-title">ASUS<br>平面設計・電商視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 018 ]</div><div class="work-company">ASUS</div><div class="work-title">平面設計・電商視覺設計・電商平台維護</div><div class="work-desc">電商平台維護、新品上市線上線下製作物規劃，大量修圖合成經驗。</div><div class="work-tags-row"><span class="work-tag">Graphic Design</span><span class="work-tag">E-commerce</span><span class="work-tag">Retouching</span></div></div>
+      </div>
+
+      <!-- 019 Nike -->
+      <div class="work-card" data-category="branding" data-lightbox='["works/Nike_02.png","works/Nike_01.png"]' data-company="Nike" data-title="數位品牌月報設計">
+        <div class="work-img-wrap"><img src="works/Nike_02.png" alt="Nike"><div class="work-overlay"><div class="work-overlay-label">[ Branding · Digital ]</div><div class="work-overlay-title">Nike<br>數位品牌月報設計</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 019 ]</div><div class="work-company">Nike</div><div class="work-title">Taiwan Digital Brand Monthly Highlight 數位品牌月報</div><div class="work-desc">數位品牌月報視覺設計，整合社群數據與品牌視覺呈現。</div><div class="work-tags-row"><span class="work-tag">Branding</span><span class="work-tag">Digital Report</span><span class="work-tag">Social Media</span></div></div>
+      </div>
+
+      <!-- 020 社群素材 -->
+      <div class="work-card wide" data-category="branding" data-lightbox='["SM_01.png","SM_02.png","SM_03.png","SM_04.png","SM_05.png","SM_06.png","SM_07.png","SM_08.png","SM_09.png","SM_10.png","SM_11.png","SM_12.png","SM_13.png","SM_14.png","SM_15.png","SM_16.png","SM_17.png","SM_18.png","SM_19.png","SM_20.png","SM_21.png","SM_22.png","SM_23.png","SM_24.png","SM_25.png","SM_26.png","SM_27.png","SM_28.png","SM_29.png","SM_30.png","SM_31.png","SM_32.png","SM_33.png"]' data-company="社群媒體素材" data-title="各品牌 Social Media 視覺設計">
+        <div class="work-img-wrap"><img src="SM_01.png" alt="Social Media"><div class="work-overlay"><div class="work-overlay-label">[ Branding · Social Media ]</div><div class="work-overlay-title">社群媒體素材<br>各品牌 FB・IG・LINE 視覺設計</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 020 ]</div><div class="work-company">社群媒體素材精選</div><div class="work-title">各品牌 FB・IG・LINE 社群視覺素材設計</div><div class="work-desc">從最早的 Yahoo Flash Banner、EDM 到 FB、IG、LINE，跨國不同國家的媒體素材。</div><div class="work-tags-row"><span class="work-tag">Social Media</span><span class="work-tag">FB / IG / LINE</span><span class="work-tag">Various Brands</span></div></div>
+      </div>
+
+    </div><!-- end works-masonry -->
+
+    <!-- AI Section -->
+    <div class="container" style="padding-top:5rem">
+      <div class="section-header reveal">
+        <span class="section-num" style="color:var(--accent)">AI</span>
+        <span class="section-title">( AI 數位創作 )</span>
+        <div class="section-line"></div>
+        <span style="font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:0.15em;white-space:nowrap">2023 ~ Present</span>
+      </div>
+      <p class="reveal" style="font-size:0.85rem;color:var(--muted);line-height:1.9;max-width:600px;margin-bottom:4rem">結合 AI 工具與視覺設計專業，探索生成式 AI 在品牌創意、圖像生成、介面輔助設計等領域的應用可能。</p>
+    </div>
+    <div class="works-masonry reveal">
+      <div class="work-card" data-category="ai" data-company="AI 數位創作" data-title="品牌視覺生成">
+        <div class="work-img-wrap" style="background:#0f1a08;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#8fbe44" stroke-width="1" opacity="0.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          <span style="font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:0.15em">Coming Soon</span>
+        </div>
+        <div class="work-info"><div class="work-num" style="color:var(--accent)">[ AI · 001 ]</div><div class="work-company">品牌視覺生成</div><div class="work-title">運用 AI 工具輔助品牌視覺發想與圖像生成</div><div class="work-desc">結合 Midjourney、Adobe Firefly 等生成式 AI，快速產出品牌氛圍圖。</div><div class="work-tags-row"><span class="work-tag">Midjourney</span><span class="work-tag">Firefly</span><span class="work-tag">Branding</span></div></div>
+      </div>
+      <div class="work-card" data-category="ai" data-company="AI 數位創作" data-title="AI 輔助 UI 設計">
+        <div class="work-img-wrap" style="background:#0f1a08;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#8fbe44" stroke-width="1" opacity="0.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          <span style="font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:0.15em">Coming Soon</span>
+        </div>
+        <div class="work-info"><div class="work-num" style="color:var(--accent)">[ AI · 002 ]</div><div class="work-company">AI 輔助 UI 設計</div><div class="work-title">AI 工具加速介面提案・版型發想・設計迭代</div><div class="work-desc">善用 Claude、ChatGPT 等 AI 工具協助設計思考，結合 Figma 縮短流程。</div><div class="work-tags-row"><span class="work-tag">Claude AI</span><span class="work-tag">Figma</span><span class="work-tag">UI Design</span></div></div>
+      </div>
+      <div class="work-card" data-category="ai" data-company="AI 數位創作" data-title="生成式 AI 社群素材">
+        <div class="work-img-wrap" style="background:#0f1a08;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#8fbe44" stroke-width="1" opacity="0.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+          <span style="font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:0.15em">Coming Soon</span>
+        </div>
+        <div class="work-info"><div class="work-num" style="color:var(--accent)">[ AI · 003 ]</div><div class="work-company">生成式 AI 社群素材</div><div class="work-title">AI 生成圖像結合品牌調性・社群視覺素材</div><div class="work-desc">以 AI 生成圖搭配人工排版與品牌設計規範，製作 IG、FB 等社群視覺素材。</div><div class="work-tags-row"><span class="work-tag">Generative AI</span><span class="work-tag">Social Media</span><span class="work-tag">Visual Design</span></div></div>
+      </div>
+    </div>
+  </div><!-- end works-content -->
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <p class="contact-label reveal">[ GET IN TOUCH ]</p>
+  <h2 class="contact-title reveal reveal-delay-1">一起創造<br><em>好的設計</em></h2>
+  <a href="mailto:julie@example.com" class="contact-btn reveal reveal-delay-2">[ CONTACT ME ]</a>
+</section>
+<footer>
+  <p class="footer-copy">©2025 Julie Chang · All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#hero">Top ↑</a>
+    <a href="mailto:julie@example.com">Email</a>
+  </div>
+</footer>
+<script>
+const CORRECT_PW = 'REDACTED';
+// Cursor
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=-100,my=-100,rx=-100,ry=-100;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){cursor.style.left=(mx-4)+'px';cursor.style.top=(my-4)+'px';rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=(rx-16)+'px';ring.style.top=(ry-16)+'px';requestAnimationFrame(tick);})();
+document.querySelectorAll('a,button,.work-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(2)';ring.style.transform='scale(1.5)';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='';ring.style.transform='';});
+});
+// Loader
+const loader=document.getElementById('loader'),fill=document.getElementById('loaderFill'),pct=document.getElementById('loaderPercent');
+let p=0;
+const iv=setInterval(()=>{p+=Math.random()*4+1;if(p>=100){p=100;clearInterval(iv);setTimeout(startHero,300);}fill.style.width=p+'%';pct.textContent=Math.floor(p)+'%';},40);
+function startHero(){
+  loader.style.cssText='opacity:0;transition:opacity 0.6s';
+  setTimeout(()=>loader.style.display='none',600);
+  setTimeout(()=>{
+    document.getElementById('heroTag').style.cssText='opacity:1;transition:opacity 0.8s 0.2s';
+    document.querySelectorAll('.hero-title .inner').forEach((el,i)=>{el.style.cssText='transform:translateY(0);transition:transform 0.9s cubic-bezier(0.16,1,0.3,1) '+(0.4+i*0.15)+'s';});
+    document.getElementById('heroTitle').style.opacity='1';
+    setTimeout(()=>{document.getElementById('heroSub').style.cssText='opacity:1;transition:opacity 0.8s';},900);
+  },200);
+}
+// Reveal
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+// Mobile nav
+document.getElementById('menuBtn').onclick=()=>document.getElementById('mobileNav').classList.add('open');
+document.getElementById('menuClose').onclick=closeMobileNav;
+function closeMobileNav(){document.getElementById('mobileNav').classList.remove('open');}
+// Parallax
+window.addEventListener('scroll',()=>{const bg=document.querySelector('.hero-bg-text');if(bg)bg.style.transform='translateY(calc(-50% + '+(window.scrollY*0.3)+'px))';});
+// Password
+const pwInput=document.getElementById('pwInput');
+const pwBtn=document.getElementById('pwBtn');
+const pwError=document.getElementById('pwError');
+const pwOverlay=document.getElementById('pw-overlay');
+const worksContent=document.getElementById('works-content');
+function tryPassword(){
+  if(pwInput.value===CORRECT_PW){
+    pwOverlay.style.display='none';
+    worksContent.style.display='block';
+    sessionStorage.setItem('pw_ok','1');
+    setTimeout(()=>{document.querySelectorAll('#works-content .reveal').forEach(el=>obs.observe(el));},100);
+  } else {
+    pwError.classList.add('show');
+    pwInput.value='';
+    pwInput.focus();
+    setTimeout(()=>pwError.classList.remove('show'),2500);
+  }
+}
+pwBtn.onclick=tryPassword;
+pwInput.addEventListener('keydown',e=>{if(e.key==='Enter')tryPassword();});
+// Keep unlocked during session
+if(sessionStorage.getItem('pw_ok')==='1'){pwOverlay.style.display='none';worksContent.style.display='block';}
+// Filter
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.work-card').forEach(card=>{card.style.display=(f==='all'||card.dataset.category===f)?'flex':'none';});
+  };
+});
+// Lightbox
+const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lbImg'),lbCompany=document.getElementById('lbCompany'),lbTitle=document.getElementById('lbTitle');
+let currentImages=[],lbIdx=0;
+document.querySelectorAll('.work-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const raw=card.dataset.lightbox;if(!raw)return;
+    currentImages=JSON.parse(raw);lbIdx=0;
+    lbImg.src=currentImages[0];
+    lbCompany.textContent=card.dataset.company||'';
+    lbTitle.textContent=card.dataset.title||'';
+    lb.classList.add('open');
+  });
+});
+document.getElementById('lbClose').onclick=()=>lb.classList.remove('open');
+document.getElementById('lbPrev').onclick=()=>{lbIdx=(lbIdx-1+currentImages.length)%currentImages.length;lbImg.src=currentImages[lbIdx];};
+document.getElementById('lbNext').onclick=()=>{lbIdx=(lbIdx+1)%currentImages.length;lbImg.src=currentImages[lbIdx];};
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open');});
+document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')lb.classList.remove('open');
+  if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+currentImages.length)%currentImages.length;lbImg.src=currentImages[lbIdx];}
+  if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%currentImages.length;lbImg.src=currentImages[lbIdx];}
+});
+</script>
+</body>
+</html>
