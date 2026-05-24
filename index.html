@@ -110,18 +110,31 @@ section{padding:8rem 3rem}
 .work-desc{font-size:0.72rem;color:var(--muted);line-height:1.75;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .work-tags-row{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:auto;padding-top:0.75rem}
 .work-tag{font-family:var(--mono);font-size:0.55rem;padding:0.2rem 0.55rem;border:1px solid var(--border);color:var(--muted)}
+/* Mini mockups inside work cards */
+.work-img-wrap.mockup-wrap{background:linear-gradient(135deg,#161616 0%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;padding:1rem;gap:0.6rem;overflow:hidden}
+.work-card.wide .work-img-wrap.mockup-wrap{aspect-ratio:21/9}
+.mini-phone{height:88%;aspect-ratio:9/19.5;background:linear-gradient(135deg,#2a2a2a,#0d0d0d);border-radius:16px;padding:3px;box-shadow:0 10px 28px rgba(0,0,0,0.55),inset 0 0 0 1px rgba(255,255,255,0.1);flex-shrink:0;position:relative}
+.mini-phone::before{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:30px;height:7px;background:#000;border-radius:5px;z-index:3}
+.mini-phone-screen{width:100%;height:100%;background:#000;border-radius:13px;overflow:hidden;position:relative}
+.mini-phone-screen img{position:absolute;inset:0;width:100% !important;height:100% !important;object-fit:cover !important;object-position:center top !important;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1) !important;filter:none !important}
+.work-card:hover .mockup-wrap .mini-phone-screen img{transform:scale(1.04) !important}
+.mini-tv{height:85%;aspect-ratio:16/10;background:linear-gradient(135deg,#2a2a2a,#0d0d0d);border-radius:8px;padding:4px;flex-shrink:0;box-shadow:0 10px 28px rgba(0,0,0,0.55),inset 0 0 0 1px rgba(255,255,255,0.1);position:relative}
+.mini-tv-screen{width:100%;height:100%;background:#000;border-radius:4px;overflow:hidden;position:relative}
+.mini-tv-screen img{position:absolute;inset:0;width:100% !important;height:100% !important;object-fit:cover !important;object-position:center top !important;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1) !important;filter:none !important}
+.work-card:hover .mockup-wrap .mini-tv-screen img{transform:scale(1.04) !important}
+.mockup-wrap .work-overlay{pointer-events:none;z-index:5}
 /* Phone showcase */
-.phone-showcase-card{background:linear-gradient(135deg,#0f0f0f 0%,#1a1a1a 100%);padding:0;overflow:visible}
+.phone-showcase-card{background:linear-gradient(135deg,#0f0f0f 0%,#1a1a1a 100%);padding:0;overflow:hidden}
 .phone-showcase-card .work-info{display:none}
-.phone-showcase{display:grid;grid-template-columns:340px 1fr;gap:4rem;align-items:center;padding:4rem 3rem;min-height:680px}
-.phone-mockup{position:relative;width:300px;justify-self:center;perspective:1500px;animation:phoneFloat 6s ease-in-out infinite}
-@keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(-2deg)}}
-.phone-frame{position:relative;width:300px;height:620px;background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 50%,#0d0d0d 100%);border-radius:46px;padding:10px;box-shadow:0 50px 100px -20px rgba(0,0,0,0.8),0 30px 60px -30px rgba(143,190,68,0.15),inset 0 0 0 1px rgba(255,255,255,0.08),inset 0 1px 0 rgba(255,255,255,0.1);transform-style:preserve-3d}
-.phone-frame::before{content:'';position:absolute;top:140px;left:-2px;width:3px;height:30px;background:#2a2a2a;border-radius:2px 0 0 2px}
-.phone-frame::after{content:'';position:absolute;top:200px;left:-2px;width:3px;height:55px;background:#2a2a2a;border-radius:2px 0 0 2px;box-shadow:0 75px 0 #2a2a2a}
-.phone-notch{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:96px;height:28px;background:#000;border-radius:18px;z-index:10;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05)}
-.phone-notch::after{content:'';position:absolute;right:8px;top:50%;transform:translateY(-50%);width:7px;height:7px;background:#1a1a1a;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(143,190,68,0.4)}
-.phone-screen{position:relative;width:100%;height:100%;background:#000;border-radius:36px;overflow:hidden}
+.phone-showcase{display:grid;grid-template-columns:600px 1fr;gap:4rem;align-items:center;padding:3rem 3rem;height:780px;overflow:hidden}
+.phone-mockup{position:relative;width:600px;justify-self:center;animation:phoneFloat 6s ease-in-out infinite}
+@keyframes phoneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.phone-frame{position:relative;width:600px;height:1240px;background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 50%,#0d0d0d 100%);border-radius:92px;padding:20px;box-shadow:0 60px 120px -20px rgba(0,0,0,0.85),0 40px 80px -30px rgba(143,190,68,0.18),inset 0 0 0 1px rgba(255,255,255,0.08),inset 0 1px 0 rgba(255,255,255,0.1)}
+.phone-frame::before{content:'';position:absolute;top:280px;left:-3px;width:5px;height:60px;background:#2a2a2a;border-radius:3px 0 0 3px}
+.phone-frame::after{content:'';position:absolute;top:400px;left:-3px;width:5px;height:110px;background:#2a2a2a;border-radius:3px 0 0 3px;box-shadow:0 150px 0 #2a2a2a}
+.phone-notch{position:absolute;top:36px;left:50%;transform:translateX(-50%);width:192px;height:56px;background:#000;border-radius:36px;z-index:10;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05)}
+.phone-notch::after{content:'';position:absolute;right:16px;top:50%;transform:translateY(-50%);width:14px;height:14px;background:#1a1a1a;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(143,190,68,0.4)}
+.phone-screen{position:relative;width:100%;height:100%;background:#000;border-radius:72px;overflow:hidden}
 .phone-track{display:flex;height:100%;transition:transform 0.7s cubic-bezier(0.7,0,0.3,1);will-change:transform;background:#0a0a0a}
 .phone-slide{flex:0 0 100%;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0a0a0a;padding:0}
 .phone-slide img{width:100%;height:auto;max-height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none}
@@ -140,7 +153,34 @@ section{padding:8rem 3rem}
 .phone-btn{font-family:var(--mono);font-size:0.9rem;font-weight:700;color:var(--text);background:transparent;border:1px solid var(--border);width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all 0.3s}
 .phone-btn:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .phone-hint{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:0.2em;opacity:0.7}
-@media(max-width:900px){.phone-showcase{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem}.phone-mockup{order:1}.phone-side-info{order:2;text-align:center;align-items:center}}
+@media(max-width:1200px){.phone-showcase{grid-template-columns:480px 1fr;height:680px}.phone-mockup,.phone-frame{width:480px}.phone-frame{height:992px;border-radius:74px;padding:16px}.phone-notch{width:154px;height:45px;top:28px;border-radius:30px}.phone-screen{border-radius:58px}}
+@media(max-width:900px){.phone-showcase{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem;height:auto;min-height:600px}.phone-mockup,.phone-frame{width:300px}.phone-frame{height:620px;border-radius:46px;padding:10px}.phone-notch{width:96px;height:28px;top:18px;border-radius:18px}.phone-screen{border-radius:36px}.phone-frame::before{top:140px;height:30px}.phone-frame::after{top:200px;height:55px;box-shadow:0 75px 0 #2a2a2a}.phone-mockup{order:1}.phone-side-info{order:2;text-align:center;align-items:center}}
+
+/* Laptop showcase */
+.laptop-showcase-card{background:linear-gradient(135deg,#0f0f0f 0%,#1a1a1a 100%);padding:0;overflow:hidden}
+.laptop-showcase-card .work-info{display:none}
+.laptop-showcase{display:flex;flex-direction:column;align-items:center;gap:2.5rem;padding:4rem 3rem;min-height:700px}
+.laptop-side-info{display:flex;flex-direction:column;gap:1rem;text-align:center;align-items:center;max-width:640px}
+.laptop-mockup{position:relative;width:840px;animation:laptopFloat 6s ease-in-out infinite}
+@keyframes laptopFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.laptop-frame{position:relative;width:780px;height:490px;margin:0 auto;background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 50%,#0d0d0d 100%);border-radius:14px 14px 4px 4px;padding:16px;box-shadow:0 40px 80px -20px rgba(0,0,0,0.8),0 25px 50px -25px rgba(143,190,68,0.15),inset 0 0 0 1px rgba(255,255,255,0.08),inset 0 1px 0 rgba(255,255,255,0.1)}
+.laptop-camera{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:6px;height:6px;background:#0a0a0a;border-radius:50%;z-index:10;box-shadow:inset 0 0 0 1px rgba(143,190,68,0.4)}
+.laptop-screen{position:relative;width:100%;height:100%;background:#000;border-radius:4px;overflow:hidden}
+.laptop-track{display:flex;height:100%;transition:transform 0.7s cubic-bezier(0.7,0,0.3,1);will-change:transform;background:#0a0a0a}
+.laptop-slide{flex:0 0 100%;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#0a0a0a;padding:0}
+.laptop-slide img{width:100%;height:auto;max-height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none}
+.laptop-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,0.08);z-index:5}
+.laptop-progress-fill{height:100%;background:var(--accent);width:0;transition:width 0.2s linear}
+.laptop-base{position:relative;width:840px;height:14px;background:linear-gradient(180deg,#2a2a2a 0%,#1a1a1a 50%,#0d0d0d 100%);border-radius:0 0 18px 18px;margin:-2px auto 0;box-shadow:0 10px 30px -10px rgba(0,0,0,0.6)}
+.laptop-base::before{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);width:120px;height:5px;background:#0a0a0a;border-radius:0 0 10px 10px}
+.laptop-meta{display:flex;justify-content:center;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.laptop-counter{font-family:var(--mono);font-size:1.6rem;color:var(--text);font-weight:700}
+.laptop-counter #laptopCurrent{color:var(--accent)}
+.laptop-controls{display:flex;gap:0.5rem}
+.laptop-btn{font-family:var(--mono);font-size:0.85rem;font-weight:700;color:var(--text);background:transparent;border:1px solid var(--border);width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all 0.3s}
+.laptop-btn:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+@media(max-width:1000px){.laptop-mockup{width:100%;max-width:600px}.laptop-frame{width:560px;height:350px;max-width:100%}.laptop-base{width:600px;max-width:100%}}
+@media(max-width:640px){.laptop-frame{width:90vw;height:calc(90vw * 0.625);padding:10px;border-radius:10px 10px 3px 3px}.laptop-base{width:95vw;height:10px}.laptop-camera{width:4px;height:4px;top:5px}}
 /* Lightbox */
 #lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:1.5rem}
 #lightbox.open{display:flex}
@@ -401,13 +441,13 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 
       <!-- 002 GagaOOLala -->
       <div class="work-card" data-category="app" data-lightbox='["works/GagaOOLala_10.png","works/GagaOOLala_01.png","works/GagaOOLala_02.png","works/GagaOOLala_03.png","works/GagaOOLala_04.png","works/GagaOOLala_05.png","works/GagaOOLala_06.png","works/GagaOOLala_07.png","works/GagaOOLala_08.png","works/GagaOOLala_09.png"]' data-company="GagaOOLala 影音平台" data-title="跨國多螢影音平台 iOS / Android / TV">
-        <div class="work-img-wrap"><img src="works/GagaOOLala_10.png" alt="GagaOOLala"><div class="work-overlay"><div class="work-overlay-label">[ App Design · Multi-screen ]</div><div class="work-overlay-title">GagaOOLala<br>跨國多螢影音平台</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-img-wrap mockup-wrap"><div class="mini-tv"><div class="mini-tv-screen"><img src="works/GagaOOLala_05.png" alt="GagaOOLala TV"></div></div><div class="mini-phone"><div class="mini-phone-screen"><img src="works/GagaOOLala_10.png" alt="GagaOOLala App"></div></div><div class="work-overlay"><div class="work-overlay-label">[ App Design · Multi-screen ]</div><div class="work-overlay-title">GagaOOLala<br>跨國多螢影音平台</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 002 ]</div><div class="work-company">GagaOOLala 影音平台</div><div class="work-title">跨國多螢影音平台・iOS / Android / TV 介面規劃</div><div class="work-desc">視覺設計規劃，考量資安、金流、跨國使用、不同載具差異等多面向因素。</div><div class="work-tags-row"><span class="work-tag">App Design</span><span class="work-tag">iOS/Android</span><span class="work-tag">TV UI</span></div></div>
       </div>
 
       <!-- 003 BigbigC -->
       <div class="work-card" data-category="app" data-lightbox='["works/BigbigC_02.png","works/BigbigC_01.png","works/BigbigC_03.png","works/BigbigC_04.png","works/BigbigC_05.png","works/BigbigC_06.png","works/BigbigC_07.png"]' data-company="BigbigC 香港影音平台" data-title="多螢平台開發・訂閱制度・儲值系統">
-        <div class="work-img-wrap"><img src="works/BigbigC_02.png" alt="BigbigC"><div class="work-overlay"><div class="work-overlay-label">[ App Design · Subscription ]</div><div class="work-overlay-title">BigbigC<br>香港影音平台</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/BigbigC_02.png" alt="BigbigC"></div></div><div class="work-overlay"><div class="work-overlay-label">[ App Design · Subscription ]</div><div class="work-overlay-title">BigbigC<br>香港影音平台</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 003 ]</div><div class="work-company">BigbigC 香港影音平台</div><div class="work-title">多螢平台開發・訂閱制度・儲值系統介面</div><div class="work-desc">因港劇類別多，加上訂閱、儲值等多種觀看模式，介面設計挑戰多樣。</div><div class="work-tags-row"><span class="work-tag">App Design</span><span class="work-tag">Multi-screen</span><span class="work-tag">Subscription</span></div></div>
       </div>
 
@@ -425,7 +465,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 
       <!-- 006 NVIDIA -->
       <div class="work-card" data-category="app" data-lightbox='["works/NVIDIA_01.png","works/NVIDIA_03.png","works/NVIDIA_04.png","works/NVIDIA_05.png","works/NVIDIA_06.png","works/NVIDIA_07.png","works/NVIDIA_08.png","works/NVIDIA_09.png","works/NVIDIA_10.png","works/NVIDIA_11.png","works/NVIDIA_12.png","works/NVIDIA_13.png","works/NVIDIA_14.png","works/NVIDIA_15.png","works/NVIDIA_16.png","works/NVIDIA_17.png","works/NVIDIA_18.png","works/NVIDIA_19.png","works/NVIDIA_20.png","works/NVIDIA_21.png","works/NVIDIA_22.png","works/NVIDIA_23.png","works/NVIDIA_24.png","works/NVIDIA_25.png","works/NVIDIA_26.png","works/NVIDIA_27.png","works/NVIDIA_28.png","works/NVIDIA_29.png","works/NVIDIA_30.png","works/NVIDIA_31.png","works/NVIDIA_32.png","works/NVIDIA_33.png"]' data-company="Nvidia 小程序" data-title="跨國微博小程序設計">
-        <div class="work-img-wrap"><img src="works/NVIDIA_01.png" alt="NVIDIA"><div class="work-overlay"><div class="work-overlay-label">[ App Design · Cross-border ]</div><div class="work-overlay-title">Nvidia<br>跨國微博小程序</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/NVIDIA_01.png" alt="NVIDIA"></div></div><div class="work-overlay"><div class="work-overlay-label">[ App Design · Cross-border ]</div><div class="work-overlay-title">Nvidia<br>跨國微博小程序</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 006 ]</div><div class="work-company">Nvidia 小程序</div><div class="work-title">跨國製作的微博小程序・中國特定平台開發</div><div class="work-desc">需遵守跨國企業設計規範，解決不同地區平台使用習慣差異。</div><div class="work-tags-row"><span class="work-tag">Mini Program</span><span class="work-tag">WeChat</span><span class="work-tag">Cross-border</span></div></div>
       </div>
 
@@ -507,70 +547,34 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
         <div class="work-info"><div class="work-num">[ 019 ]</div><div class="work-company">Nike</div><div class="work-title">Taiwan Digital Brand Monthly Highlight 數位品牌月報</div><div class="work-desc">數位品牌月報視覺設計，整合社群數據與品牌視覺呈現。</div><div class="work-tags-row"><span class="work-tag">Branding</span><span class="work-tag">Digital Report</span><span class="work-tag">Social Media</span></div></div>
       </div>
 
-      <!-- payeasy_01 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_01.png&quot;]' data-company="電商平台" data-title="電商視覺 01">
-        <div class="work-img-wrap"><img src="works/payeasy_01.png" alt="payeasy 01"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 01</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 01 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #01</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_02 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_02.png&quot;]' data-company="電商平台" data-title="電商視覺 02">
-        <div class="work-img-wrap"><img src="works/payeasy_02.png" alt="payeasy 02"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 02</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 02 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #02</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_03 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_03.png&quot;]' data-company="電商平台" data-title="電商視覺 03">
-        <div class="work-img-wrap"><img src="works/payeasy_03.png" alt="payeasy 03"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 03</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 03 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #03</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_04 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_04.png&quot;]' data-company="電商平台" data-title="電商視覺 04">
-        <div class="work-img-wrap"><img src="works/payeasy_04.png" alt="payeasy 04"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 04</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 04 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #04</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_05 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_05.png&quot;]' data-company="電商平台" data-title="電商視覺 05">
-        <div class="work-img-wrap"><img src="works/payeasy_05.png" alt="payeasy 05"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 05</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 05 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #05</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_06 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_06.png&quot;]' data-company="電商平台" data-title="電商視覺 06">
-        <div class="work-img-wrap"><img src="works/payeasy_06.png" alt="payeasy 06"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 06</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 06 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #06</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_07 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_07.png&quot;]' data-company="電商平台" data-title="電商視覺 07">
-        <div class="work-img-wrap"><img src="works/payeasy_07.png" alt="payeasy 07"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 07</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 07 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #07</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_08 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_08.png&quot;]' data-company="電商平台" data-title="電商視覺 08">
-        <div class="work-img-wrap"><img src="works/payeasy_08.png" alt="payeasy 08"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 08</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 08 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #08</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_09 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_09.png&quot;]' data-company="電商平台" data-title="電商視覺 09">
-        <div class="work-img-wrap"><img src="works/payeasy_09.png" alt="payeasy 09"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 09</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 09 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #09</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_10 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_10.png&quot;]' data-company="電商平台" data-title="電商視覺 10">
-        <div class="work-img-wrap"><img src="works/payeasy_10.png" alt="payeasy 10"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 10</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 10 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #10</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
-      </div>
-
-      <!-- payeasy_11 -->
-      <div class="work-card" data-category="ecommerce" data-lightbox='[&quot;works/payeasy_11.png&quot;]' data-company="電商平台" data-title="電商視覺 11">
-        <div class="work-img-wrap"><img src="works/payeasy_11.png" alt="payeasy 11"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce ]</div><div class="work-overlay-title">電商平台 11</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ EC · 11 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #11</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
+      <!-- 電商平台 — laptop mockup showcase -->
+      <div class="work-card laptop-showcase-card wide" data-category="ecommerce" data-company="電商平台" data-title="各品類電商視覺維運">
+        <div class="laptop-showcase">
+          <div class="laptop-mockup">
+            <div class="laptop-frame">
+              <div class="laptop-camera"></div>
+              <div class="laptop-screen">
+                <div class="laptop-track" id="laptopTrack"></div>
+                <div class="laptop-progress"><div class="laptop-progress-fill" id="laptopProgress"></div></div>
+              </div>
+            </div>
+            <div class="laptop-base"></div>
+          </div>
+          <div class="laptop-side-info">
+            <div class="phone-label">[ E-COMMERCE · SHOWCASE ]</div>
+            <h3 class="phone-title">電商平台<br><span class="phone-title-en">E-commerce Works</span></h3>
+            <p class="phone-desc">電商講求運用宣傳效益，視覺溝通需比較導購；常因季節話題性做素材的調整。共 <strong>11</strong> 件作品自動播放。</p>
+            <div class="laptop-meta">
+              <div class="laptop-counter"><span id="laptopCurrent">01</span> <span class="phone-divider">/</span> <span>11</span></div>
+              <div class="laptop-controls">
+                <button class="laptop-btn" id="laptopPrev" aria-label="上一張">←</button>
+                <button class="laptop-btn" id="laptopPause" aria-label="播放暫停">||</button>
+                <button class="laptop-btn" id="laptopNext" aria-label="下一張">→</button>
+              </div>
+            </div>
+            <div class="phone-hint">點筆電螢幕可放大檢視</div>
+          </div>
+        </div>
       </div>
 
       <!-- 媒體素材 — phone mockup showcase -->
@@ -708,6 +712,54 @@ pwBtn.onclick=tryPassword;
 pwInput.addEventListener('keydown',e=>{if(e.key==='Enter')tryPassword();});
 // Keep unlocked during session
 if(sessionStorage.getItem('pw_ok')==='1'){pwOverlay.style.display='none';worksContent.style.display='block';}
+// Laptop showcase
+(function initLaptop(){
+  const track=document.getElementById('laptopTrack');
+  if(!track)return;
+  const TOTAL=11,INTERVAL=4000;
+  for(let i=1;i<=TOTAL;i++){
+    const n=String(i).padStart(2,'0');
+    const slide=document.createElement('div');
+    slide.className='laptop-slide';
+    const img=document.createElement('img');
+    img.src='works/payeasy_'+n+'.png';
+    img.alt='payeasy '+n;
+    img.loading=i>3?'lazy':'eager';
+    slide.appendChild(img);
+    track.appendChild(slide);
+  }
+  let idx=0,paused=false,progress=0;
+  const counter=document.getElementById('laptopCurrent');
+  const fill=document.getElementById('laptopProgress');
+  function show(i){
+    idx=(i+TOTAL)%TOTAL;
+    track.style.transform='translateX(-'+(idx*100)+'%)';
+    counter.textContent=String(idx+1).padStart(2,'0');
+    progress=0;fill.style.width='0%';
+  }
+  function tick(){
+    if(paused)return;
+    progress+=100/(INTERVAL/50);
+    fill.style.width=Math.min(progress,100)+'%';
+    if(progress>=100)show(idx+1);
+  }
+  setInterval(tick,50);
+  document.getElementById('laptopNext').onclick=()=>show(idx+1);
+  document.getElementById('laptopPrev').onclick=()=>show(idx-1);
+  const pauseBtn=document.getElementById('laptopPause');
+  pauseBtn.onclick=()=>{paused=!paused;pauseBtn.textContent=paused?'▶':'||';};
+  const screen=document.querySelector('.laptop-showcase-card .laptop-screen');
+  if(screen){
+    screen.style.cursor='none';
+    screen.addEventListener('click',e=>{
+      e.stopPropagation();
+      const all=[];for(let i=1;i<=TOTAL;i++)all.push('works/payeasy_'+String(i).padStart(2,'0')+'.png');
+      window.__phoneLightboxOpen&&window.__phoneLightboxOpen(all,idx,'電商平台','電商視覺 #'+String(idx+1).padStart(2,'0'));
+    });
+  }
+  show(0);
+})();
+
 // Phone showcase
 (function initPhone(){
   const track=document.getElementById('phoneTrack');
