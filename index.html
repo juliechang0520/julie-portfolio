@@ -110,6 +110,36 @@ section{padding:8rem 3rem}
 .work-desc{font-size:0.72rem;color:var(--muted);line-height:1.75;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .work-tags-row{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:auto;padding-top:0.75rem}
 .work-tag{font-family:var(--mono);font-size:0.55rem;padding:0.2rem 0.55rem;border:1px solid var(--border);color:var(--muted)}
+/* Phone showcase */
+.phone-showcase-card{background:linear-gradient(135deg,#0f0f0f 0%,#1a1a1a 100%);padding:0;overflow:visible}
+.phone-showcase-card .work-info{display:none}
+.phone-showcase{display:grid;grid-template-columns:340px 1fr;gap:4rem;align-items:center;padding:4rem 3rem;min-height:680px}
+.phone-mockup{position:relative;width:300px;justify-self:center;perspective:1500px;animation:phoneFloat 6s ease-in-out infinite}
+@keyframes phoneFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(-2deg)}}
+.phone-frame{position:relative;width:300px;height:620px;background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 50%,#0d0d0d 100%);border-radius:46px;padding:10px;box-shadow:0 50px 100px -20px rgba(0,0,0,0.8),0 30px 60px -30px rgba(143,190,68,0.15),inset 0 0 0 1px rgba(255,255,255,0.08),inset 0 1px 0 rgba(255,255,255,0.1);transform-style:preserve-3d}
+.phone-frame::before{content:'';position:absolute;top:140px;left:-2px;width:3px;height:30px;background:#2a2a2a;border-radius:2px 0 0 2px}
+.phone-frame::after{content:'';position:absolute;top:200px;left:-2px;width:3px;height:55px;background:#2a2a2a;border-radius:2px 0 0 2px;box-shadow:0 75px 0 #2a2a2a}
+.phone-notch{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:96px;height:28px;background:#000;border-radius:18px;z-index:10;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05)}
+.phone-notch::after{content:'';position:absolute;right:8px;top:50%;transform:translateY(-50%);width:7px;height:7px;background:#1a1a1a;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(143,190,68,0.4)}
+.phone-screen{position:relative;width:100%;height:100%;background:#000;border-radius:36px;overflow:hidden}
+.phone-track{display:flex;height:100%;transition:transform 0.7s cubic-bezier(0.7,0,0.3,1);will-change:transform}
+.phone-track img{width:100%;height:100%;object-fit:cover;object-position:center top;flex-shrink:0;user-select:none;-webkit-user-drag:none}
+.phone-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,0.08);z-index:5}
+.phone-progress-fill{height:100%;background:var(--accent);width:0;transition:width 0.2s linear}
+.phone-side-info{display:flex;flex-direction:column;gap:1.5rem;max-width:420px}
+.phone-label{font-family:var(--mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.25em}
+.phone-title{font-family:var(--mono);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;line-height:1.15;color:var(--text)}
+.phone-title-en{font-size:0.6em;color:var(--muted);font-weight:400;letter-spacing:0.05em}
+.phone-desc{font-size:0.85rem;color:var(--muted);line-height:1.8}
+.phone-desc strong{color:var(--accent);font-weight:700}
+.phone-counter{font-family:var(--mono);font-size:2rem;color:var(--text);font-weight:700;letter-spacing:0.05em}
+.phone-counter #phoneCurrent{color:var(--accent)}
+.phone-divider{color:var(--muted);margin:0 0.3rem;font-weight:300}
+.phone-controls{display:flex;gap:0.6rem}
+.phone-btn{font-family:var(--mono);font-size:0.9rem;font-weight:700;color:var(--text);background:transparent;border:1px solid var(--border);width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all 0.3s}
+.phone-btn:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.phone-hint{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:0.2em;opacity:0.7}
+@media(max-width:900px){.phone-showcase{grid-template-columns:1fr;gap:2rem;padding:3rem 1.5rem}.phone-mockup{order:1}.phone-side-info{order:2;text-align:center;align-items:center}}
 /* Lightbox */
 #lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.96);z-index:500;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:1.5rem}
 #lightbox.open{display:flex}
@@ -542,202 +572,31 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
         <div class="work-info"><div class="work-num">[ EC · 11 ]</div><div class="work-company">電商平台</div><div class="work-title">電商視覺檔期素材 #11</div><div class="work-tags-row"><span class="work-tag">E-commerce</span></div></div>
       </div>
 
-      <!-- SM_01 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_01.png&quot;]' data-company="媒體素材" data-title="社群素材 01">
-        <div class="work-img-wrap"><img src="works/SM_01.png" alt="SM 01"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 01</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 01 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #01</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_02 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_02.png&quot;]' data-company="媒體素材" data-title="社群素材 02">
-        <div class="work-img-wrap"><img src="works/SM_02.png" alt="SM 02"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 02</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 02 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #02</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_03 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_03.png&quot;]' data-company="媒體素材" data-title="社群素材 03">
-        <div class="work-img-wrap"><img src="works/SM_03.png" alt="SM 03"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 03</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 03 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #03</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_04 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_04.png&quot;]' data-company="媒體素材" data-title="社群素材 04">
-        <div class="work-img-wrap"><img src="works/SM_04.png" alt="SM 04"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 04</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 04 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #04</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_05 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_05.png&quot;]' data-company="媒體素材" data-title="社群素材 05">
-        <div class="work-img-wrap"><img src="works/SM_05.png" alt="SM 05"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 05</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 05 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #05</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_06 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_06.png&quot;]' data-company="媒體素材" data-title="社群素材 06">
-        <div class="work-img-wrap"><img src="works/SM_06.png" alt="SM 06"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 06</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 06 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #06</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_07 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_07.png&quot;]' data-company="媒體素材" data-title="社群素材 07">
-        <div class="work-img-wrap"><img src="works/SM_07.png" alt="SM 07"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 07</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 07 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #07</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_08 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_08.png&quot;]' data-company="媒體素材" data-title="社群素材 08">
-        <div class="work-img-wrap"><img src="works/SM_08.png" alt="SM 08"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 08</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 08 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #08</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_09 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_09.png&quot;]' data-company="媒體素材" data-title="社群素材 09">
-        <div class="work-img-wrap"><img src="works/SM_09.png" alt="SM 09"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 09</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 09 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #09</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_10 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_10.png&quot;]' data-company="媒體素材" data-title="社群素材 10">
-        <div class="work-img-wrap"><img src="works/SM_10.png" alt="SM 10"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 10</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 10 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #10</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_11 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_11.png&quot;]' data-company="媒體素材" data-title="社群素材 11">
-        <div class="work-img-wrap"><img src="works/SM_11.png" alt="SM 11"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 11</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 11 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #11</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_12 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_12.png&quot;]' data-company="媒體素材" data-title="社群素材 12">
-        <div class="work-img-wrap"><img src="works/SM_12.png" alt="SM 12"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 12</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 12 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #12</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_13 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_13.png&quot;]' data-company="媒體素材" data-title="社群素材 13">
-        <div class="work-img-wrap"><img src="works/SM_13.png" alt="SM 13"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 13</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 13 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #13</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_14 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_14.png&quot;]' data-company="媒體素材" data-title="社群素材 14">
-        <div class="work-img-wrap"><img src="works/SM_14.png" alt="SM 14"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 14</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 14 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #14</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_15 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_15.png&quot;]' data-company="媒體素材" data-title="社群素材 15">
-        <div class="work-img-wrap"><img src="works/SM_15.png" alt="SM 15"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 15</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 15 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #15</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_16 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_16.png&quot;]' data-company="媒體素材" data-title="社群素材 16">
-        <div class="work-img-wrap"><img src="works/SM_16.png" alt="SM 16"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 16</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 16 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #16</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_17 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_17.png&quot;]' data-company="媒體素材" data-title="社群素材 17">
-        <div class="work-img-wrap"><img src="works/SM_17.png" alt="SM 17"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 17</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 17 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #17</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_18 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_18.png&quot;]' data-company="媒體素材" data-title="社群素材 18">
-        <div class="work-img-wrap"><img src="works/SM_18.png" alt="SM 18"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 18</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 18 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #18</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_19 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_19.png&quot;]' data-company="媒體素材" data-title="社群素材 19">
-        <div class="work-img-wrap"><img src="works/SM_19.png" alt="SM 19"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 19</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 19 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #19</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_20 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_20.png&quot;]' data-company="媒體素材" data-title="社群素材 20">
-        <div class="work-img-wrap"><img src="works/SM_20.png" alt="SM 20"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 20</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 20 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #20</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_21 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_21.png&quot;]' data-company="媒體素材" data-title="社群素材 21">
-        <div class="work-img-wrap"><img src="works/SM_21.png" alt="SM 21"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 21</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 21 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #21</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_22 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_22.png&quot;]' data-company="媒體素材" data-title="社群素材 22">
-        <div class="work-img-wrap"><img src="works/SM_22.png" alt="SM 22"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 22</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 22 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #22</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_23 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_23.png&quot;]' data-company="媒體素材" data-title="社群素材 23">
-        <div class="work-img-wrap"><img src="works/SM_23.png" alt="SM 23"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 23</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 23 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #23</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_24 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_24.png&quot;]' data-company="媒體素材" data-title="社群素材 24">
-        <div class="work-img-wrap"><img src="works/SM_24.png" alt="SM 24"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 24</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 24 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #24</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_25 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_25.png&quot;]' data-company="媒體素材" data-title="社群素材 25">
-        <div class="work-img-wrap"><img src="works/SM_25.png" alt="SM 25"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 25</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 25 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #25</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_26 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_26.png&quot;]' data-company="媒體素材" data-title="社群素材 26">
-        <div class="work-img-wrap"><img src="works/SM_26.png" alt="SM 26"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 26</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 26 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #26</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_27 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_27.png&quot;]' data-company="媒體素材" data-title="社群素材 27">
-        <div class="work-img-wrap"><img src="works/SM_27.png" alt="SM 27"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 27</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 27 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #27</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_28 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_28.png&quot;]' data-company="媒體素材" data-title="社群素材 28">
-        <div class="work-img-wrap"><img src="works/SM_28.png" alt="SM 28"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 28</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 28 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #28</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_29 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_29.png&quot;]' data-company="媒體素材" data-title="社群素材 29">
-        <div class="work-img-wrap"><img src="works/SM_29.png" alt="SM 29"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 29</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 29 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #29</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_30 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_30.png&quot;]' data-company="媒體素材" data-title="社群素材 30">
-        <div class="work-img-wrap"><img src="works/SM_30.png" alt="SM 30"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 30</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 30 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #30</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_31 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_31.png&quot;]' data-company="媒體素材" data-title="社群素材 31">
-        <div class="work-img-wrap"><img src="works/SM_31.png" alt="SM 31"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 31</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 31 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #31</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_32 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_32.png&quot;]' data-company="媒體素材" data-title="社群素材 32">
-        <div class="work-img-wrap"><img src="works/SM_32.png" alt="SM 32"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 32</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 32 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #32</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
-      </div>
-
-      <!-- SM_33 -->
-      <div class="work-card" data-category="social" data-lightbox='[&quot;works/SM_33.png&quot;]' data-company="媒體素材" data-title="社群素材 33">
-        <div class="work-img-wrap"><img src="works/SM_33.png" alt="SM 33"><div class="work-overlay"><div class="work-overlay-label">[ Social ]</div><div class="work-overlay-title">媒體素材 33</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ SM · 33 ]</div><div class="work-company">媒體素材</div><div class="work-title">社群視覺素材 #33</div><div class="work-tags-row"><span class="work-tag">Social Media</span></div></div>
+      <!-- 媒體素材 — phone mockup showcase -->
+      <div class="work-card phone-showcase-card wide" data-category="social" data-company="媒體素材" data-title="各品牌 FB / IG / LINE 社群素材">
+        <div class="phone-showcase">
+          <div class="phone-mockup">
+            <div class="phone-frame">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-track" id="phoneTrack"></div>
+                <div class="phone-progress"><div class="phone-progress-fill" id="phoneProgress"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-side-info">
+            <div class="phone-label">[ MEDIA · SHOWCASE ]</div>
+            <h3 class="phone-title">媒體素材<br><span class="phone-title-en">Social Media Works</span></h3>
+            <p class="phone-desc">從 Yahoo Flash Banner、EDM 到 FB、IG、LINE，跨國跨品牌的社群媒體素材設計。共 <strong>33</strong> 件作品自動播放。</p>
+            <div class="phone-counter"><span id="phoneCurrent">01</span> <span class="phone-divider">/</span> <span>33</span></div>
+            <div class="phone-controls">
+              <button class="phone-btn" id="phonePrev" aria-label="上一張">←</button>
+              <button class="phone-btn" id="phonePause" aria-label="播放暫停">||</button>
+              <button class="phone-btn" id="phoneNext" aria-label="下一張">→</button>
+            </div>
+            <div class="phone-hint">點手機螢幕可放大檢視</div>
+          </div>
+        </div>
       </div>
 
     </div><!-- end works-masonry -->
@@ -848,6 +707,54 @@ pwBtn.onclick=tryPassword;
 pwInput.addEventListener('keydown',e=>{if(e.key==='Enter')tryPassword();});
 // Keep unlocked during session
 if(sessionStorage.getItem('pw_ok')==='1'){pwOverlay.style.display='none';worksContent.style.display='block';}
+// Phone showcase
+(function initPhone(){
+  const track=document.getElementById('phoneTrack');
+  if(!track)return;
+  const TOTAL=33,INTERVAL=3500;
+  const imgs=[];
+  for(let i=1;i<=TOTAL;i++){
+    const n=String(i).padStart(2,'0');
+    const img=document.createElement('img');
+    img.src='works/SM_'+n+'.png';
+    img.alt='SM '+n;
+    img.loading=i>3?'lazy':'eager';
+    track.appendChild(img);
+    imgs.push(img);
+  }
+  let idx=0,paused=false,timer=null,progress=0;
+  const counter=document.getElementById('phoneCurrent');
+  const fill=document.getElementById('phoneProgress');
+  function show(i){
+    idx=(i+TOTAL)%TOTAL;
+    track.style.transform='translateX(-'+(idx*100)+'%)';
+    counter.textContent=String(idx+1).padStart(2,'0');
+    progress=0;fill.style.width='0%';
+  }
+  function tick(){
+    if(paused)return;
+    progress+=100/(INTERVAL/50);
+    fill.style.width=Math.min(progress,100)+'%';
+    if(progress>=100)show(idx+1);
+  }
+  timer=setInterval(tick,50);
+  document.getElementById('phoneNext').onclick=()=>show(idx+1);
+  document.getElementById('phonePrev').onclick=()=>show(idx-1);
+  const pauseBtn=document.getElementById('phonePause');
+  pauseBtn.onclick=()=>{paused=!paused;pauseBtn.textContent=paused?'▶':'||';};
+  // Click phone screen to open lightbox starting at current image
+  const phoneScreen=document.querySelector('.phone-showcase-card .phone-screen');
+  if(phoneScreen){
+    phoneScreen.style.cursor='none';
+    phoneScreen.addEventListener('click',e=>{
+      e.stopPropagation();
+      const all=[];for(let i=1;i<=TOTAL;i++)all.push('works/SM_'+String(i).padStart(2,'0')+'.png');
+      window.__phoneLightboxOpen&&window.__phoneLightboxOpen(all,idx,'媒體素材','社群素材 #'+String(idx+1).padStart(2,'0'));
+    });
+  }
+  show(0);
+})();
+
 // Filter
 document.querySelectorAll('.filter-btn').forEach(btn=>{
   btn.onclick=()=>{
@@ -880,6 +787,15 @@ function clampPan(){
   panX=Math.max(-maxX,Math.min(maxX,panX));
   panY=Math.max(-maxY,Math.min(maxY,panY));
 }
+// Programmatic opener (used by phone showcase)
+window.__phoneLightboxOpen=function(imgs,startIdx,company,title){
+  currentImages=imgs;lbIdx=startIdx||0;
+  resetZoom();
+  lbImg.src=currentImages[lbIdx];
+  lbCompany.textContent=company||'';
+  lbTitle.textContent=title||'';
+  lb.classList.add('open');
+};
 function loadImage(idx){
   resetZoom();
   lbImg.src=currentImages[idx];
