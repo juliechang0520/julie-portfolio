@@ -249,6 +249,19 @@ section{padding:8rem 3rem}
 #lightbox img{max-width:100%;max-height:100%;object-fit:contain;display:block;transform-origin:center center;transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);user-select:none;-webkit-user-drag:none;pointer-events:none}
 .lb-stage.zoomed img{transition:none}
 .lb-stage.scroll-mode img{max-height:none;max-width:1500px;width:100%;height:auto;object-fit:initial;transition:none;margin:0 auto}
+/* Grid overview mode */
+.lb-grid{display:none;width:100%;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:0.6rem;padding:1rem;align-content:start}
+.lb-stage.grid-mode{overflow-y:auto;overflow-x:hidden;align-items:flex-start;justify-content:flex-start;cursor:default}
+.lb-stage.grid-mode > img{display:none}
+.lb-stage.grid-mode .lb-grid{display:grid}
+.lb-grid-thumb{background:#0a0a0a;border:1px solid var(--border);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;cursor:none;transition:border-color 0.3s,transform 0.3s;overflow:hidden;padding:0.35rem}
+.lb-grid-thumb:hover{border-color:var(--accent);transform:translateY(-2px)}
+.lb-grid-thumb img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.lb-grid-thumb .lb-num{position:absolute;top:0.3rem;left:0.4rem;font-family:var(--mono);font-size:0.55rem;color:var(--muted);background:rgba(0,0,0,0.6);padding:0.15rem 0.4rem;border-radius:2px;letter-spacing:0.1em;pointer-events:none}
+.lb-grid-thumb{position:relative}
+/* Back-to-grid button (shown in detail mode if has grid) */
+.lb-back-btn{display:none}
+.lb-stage.has-grid + .lb-info .lb-back-btn,.lb-stage.has-grid ~ .lb-nav .lb-back-btn{display:inline-block}
 .lb-info{text-align:center}
 .lb-company{font-family:var(--mono);font-size:0.8rem;color:var(--accent);margin-bottom:0.3rem}
 .lb-title{font-size:0.82rem;color:var(--text)}
@@ -334,13 +347,15 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
   </div>
   <div class="lb-stage" id="lbStage">
     <img id="lbImg" src="" alt="">
+    <div class="lb-grid" id="lbGrid"></div>
   </div>
   <div class="lb-info">
     <div class="lb-company" id="lbCompany"></div>
     <div class="lb-title" id="lbTitle"></div>
-    <div class="lb-hint">CLICK IMAGE TO ZOOM · SCROLL TO ZOOM · DRAG TO PAN</div>
+    <div class="lb-hint" id="lbHint">CLICK IMAGE TO ZOOM · SCROLL TO ZOOM · DRAG TO PAN</div>
   </div>
   <div class="lb-nav">
+    <button class="lb-btn" id="lbBackGrid" style="display:none">⊞ GRID</button>
     <button class="lb-btn" id="lbPrev">PREV</button>
     <button class="lb-btn" id="lbNext">NEXT</button>
   </div>
@@ -904,17 +919,44 @@ window.__phoneLightboxOpen=function(imgs,startIdx,company,title){
 };
 function loadImage(idx){
   resetZoom();
-  lbStage.classList.remove('scroll-mode');
+  lbStage.classList.remove('scroll-mode','grid-mode');
   lbImg.src=currentImages[idx];
-  // Scroll-mode for tall website screenshots (any portrait img tall enough)
+  // Scroll-mode for tall website screenshots
   lbImg.onload=()=>{
     const r = lbImg.naturalWidth / lbImg.naturalHeight;
-    // Trigger when height > 1.4x width AND tall enough to need scrolling
     if(r < 0.72 && lbImg.naturalHeight > 1400){
       lbStage.classList.add('scroll-mode');
       lbStage.scrollTop = 0;
     }
   };
+}
+function buildLbGrid(){
+  const grid=document.getElementById('lbGrid');
+  grid.innerHTML='';
+  currentImages.forEach((src,i)=>{
+    const t=document.createElement('div');
+    t.className='lb-grid-thumb';
+    const img=document.createElement('img');
+    img.src=src; img.loading=i>20?'lazy':'eager';
+    const num=document.createElement('div'); num.className='lb-num'; num.textContent=String(i+1).padStart(2,'0');
+    t.appendChild(img); t.appendChild(num);
+    t.onclick=(e)=>{e.stopPropagation();enterDetailMode(i);};
+    grid.appendChild(t);
+  });
+}
+function enterGridMode(){
+  resetZoom();
+  lbStage.classList.add('grid-mode','has-grid');
+  lbStage.classList.remove('scroll-mode','zoomed');
+  document.getElementById('lbBackGrid').style.display='none';
+  buildLbGrid();
+  lbStage.scrollTop=0;
+}
+function enterDetailMode(idx){
+  lbIdx=idx;
+  lbStage.classList.remove('grid-mode');
+  document.getElementById('lbBackGrid').style.display=lbStage.classList.contains('has-grid')?'inline-block':'none';
+  loadImage(idx);
 }
 document.querySelectorAll('.work-card').forEach(card=>{
   card.addEventListener('click',()=>{
@@ -922,10 +964,24 @@ document.querySelectorAll('.work-card').forEach(card=>{
     currentImages=JSON.parse(raw);lbIdx=0;
     lbCompany.textContent=card.dataset.company||'';
     lbTitle.textContent=card.dataset.title||'';
-    loadImage(0);
+    lbStage.classList.remove('has-grid');
+    document.getElementById('lbBackGrid').style.display='none';
+    // If many images, start with grid overview
+    if(currentImages.length > 8){
+      enterGridMode();
+    } else {
+      loadImage(0);
+    }
     lb.classList.add('open');
   });
 });
+// Back to grid button
+document.getElementById('lbBackGrid').onclick=()=>{
+  lbStage.classList.add('grid-mode');
+  lbStage.classList.remove('scroll-mode','zoomed');
+  document.getElementById('lbBackGrid').style.display='none';
+  lbStage.scrollTop=0;
+};
 document.getElementById('lbClose').onclick=()=>{lb.classList.remove('open');resetZoom();};
 document.getElementById('lbPrev').onclick=()=>{lbIdx=(lbIdx-1+currentImages.length)%currentImages.length;loadImage(lbIdx);};
 document.getElementById('lbNext').onclick=()=>{lbIdx=(lbIdx+1)%currentImages.length;loadImage(lbIdx);};
@@ -979,12 +1035,25 @@ lb.addEventListener('click',e=>{
 });
 document.addEventListener('keydown',e=>{
   if(!lb.classList.contains('open'))return;
-  if(e.key==='Escape'){lb.classList.remove('open');resetZoom();}
-  if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+currentImages.length)%currentImages.length;loadImage(lbIdx);}
-  if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%currentImages.length;loadImage(lbIdx);}
-  if(e.key==='+'||e.key==='='){zoom=Math.min(MAX_ZOOM,zoom*1.4);applyTransform();}
-  if(e.key==='-'){zoom=Math.max(MIN_ZOOM,zoom/1.4);applyTransform();}
-  if(e.key==='0'){resetZoom();}
+  if(e.key==='Escape'){
+    // If in detail mode AND has grid, go back to grid; else close
+    if(lbStage.classList.contains('has-grid') && !lbStage.classList.contains('grid-mode')){
+      lbStage.classList.add('grid-mode');
+      lbStage.classList.remove('scroll-mode','zoomed');
+      document.getElementById('lbBackGrid').style.display='none';
+      lbStage.scrollTop=0;
+    } else {
+      lb.classList.remove('open');resetZoom();
+    }
+  }
+  // Arrow keys only work in detail mode
+  if(!lbStage.classList.contains('grid-mode')){
+    if(e.key==='ArrowLeft'){lbIdx=(lbIdx-1+currentImages.length)%currentImages.length;loadImage(lbIdx);}
+    if(e.key==='ArrowRight'){lbIdx=(lbIdx+1)%currentImages.length;loadImage(lbIdx);}
+    if(e.key==='+'||e.key==='='){zoom=Math.min(MAX_ZOOM,zoom*1.4);applyTransform();}
+    if(e.key==='-'){zoom=Math.max(MIN_ZOOM,zoom/1.4);applyTransform();}
+    if(e.key==='0'){resetZoom();}
+  }
 });
 </script>
 </body>
