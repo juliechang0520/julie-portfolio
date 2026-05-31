@@ -160,8 +160,11 @@ section{padding:8rem 3rem}
 .frame-wrap{background:#0a0a0a;display:flex;align-items:center;justify-content:center;padding:1.25rem;overflow:hidden;border:1px solid var(--border);aspect-ratio:1/1}
 .frame-wrap.landscape{aspect-ratio:16/10}
 .frame-wrap.portrait{aspect-ratio:3/4}
+.frame-wrap.cropped{padding:0;aspect-ratio:1/1}
 .frame-wrap img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1) !important;filter:none !important}
+.frame-wrap.cropped img{width:100% !important;height:100% !important;max-width:none;max-height:none;object-fit:cover !important;object-position:center top !important}
 .work-card:hover .frame-wrap img{transform:scale(1.04)}
+.ai-preview-strip.single{grid-template-columns:1fr;max-width:200px}
 /* Social grid — many thumbnails, all in black-bordered frames */
 .social-grid-card{background:linear-gradient(135deg,#141414 0%,#0d0d0d 100%);border:1px solid var(--border);padding:2rem;overflow:visible;transition:border-color 0.4s}
 .social-grid-card:hover{border-color:var(--accent);transform:none}
@@ -497,9 +500,9 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
       </div>
 
       <!-- 002 台灣百和 PAIHO -->
-      <div class="work-card" data-category="integrated" data-lightbox='["works/Paiho_01.png"]' data-company="台灣百和 PAIHO" data-title="企業官網與 ESG 永續網站視覺企劃">
-        <div class="work-img-wrap frame-wrap landscape"><img src="works/Paiho_01.png" alt="台灣百和 PAIHO"><div class="work-overlay"><div class="work-overlay-label">[ UI/UX · Corporate ]</div><div class="work-overlay-title">台灣百和 PAIHO<br>官網 + ESG 永續網站</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ 002 ]</div><div class="work-company">台灣百和 PAIHO</div><div class="work-title">企業官網與 ESG 永續網站視覺企劃</div><div class="work-tags-row"><span class="work-tag">UI/UX</span><span class="work-tag">Corporate</span><span class="work-tag">ESG</span></div></div>
+      <div class="work-card" data-category="integrated" data-lightbox='["works/Paiho_01.png"]' data-company="台灣百和 PAIHO" data-title="企業官網視覺企劃">
+        <div class="work-img-wrap frame-wrap cropped"><img src="works/Paiho_01.png" alt="台灣百和 PAIHO"><div class="work-overlay"><div class="work-overlay-label">[ UI/UX · Corporate ]</div><div class="work-overlay-title">台灣百和 PAIHO<br>官網</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 002 ]</div><div class="work-company">台灣百和 PAIHO</div><div class="work-title">企業官網視覺企劃</div><div class="work-tags-row"><span class="work-tag">UI/UX</span><span class="work-tag">Corporate</span><span class="work-tag">ESG</span></div></div>
       </div>
 
       <!-- 003 BigbigC 香港影音平台 -->
@@ -528,7 +531,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 
       <!-- 007 Tripresso 旅遊咖 -->
       <div class="work-card" data-category="integrated" data-lightbox='["works/Tripresso_00.jpg","works/Tripresso_01.png","works/Tripresso_02.png","works/Tripresso_03.png","works/Tripresso_04.png","works/Tripresso_05.png","works/Tripresso_06.png"]' data-company="Tripresso 旅遊咖" data-title="旅遊平台・多版型行程介紹">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/Tripresso_00.jpg" alt="Tripresso"></div></div><div class="work-overlay"><div class="work-overlay-label">[ integrated ]</div><div class="work-overlay-title">Tripresso 旅遊咖</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/Tripresso_01.png" alt="Tripresso"></div></div><div class="work-overlay"><div class="work-overlay-label">[ integrated ]</div><div class="work-overlay-title">Tripresso 旅遊咖</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 007 ]</div><div class="work-company">Tripresso 旅遊咖</div><div class="work-title">旅遊平台・多版型行程介紹</div><div class="work-tags-row"><span class="work-tag">UI/UX</span><span class="work-tag">Travel</span><span class="work-tag">Multi-layout</span></div></div>
       </div>
 
@@ -574,48 +577,36 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
         <div class="work-info"><div class="work-num">[ 013 ]</div><div class="work-company">勝利羽球</div><div class="work-title">運動產品官網・全程攝影製作</div><div class="work-tags-row"><span class="work-tag">Website</span><span class="work-tag">Sports</span><span class="work-tag">Product</span></div></div>
       </div>
 
-      <!-- 014 生活消費品牌官網 -->
-      <div class="work-card" data-category="website" data-lightbox='["works/107c28baf07c586fef43ae754d6e3db7.jpg","works/5a8095eee1e1ea3f8b1731035335cc79.jpg","works/Lifestyle_02.jpg","works/Lifestyle_08.jpg","works/d6971a3a4f722d22163ff9b2645171cd.jpg"]' data-company="生活消費品牌官網" data-title="長榮航空・天下文化・旅遊等品牌網站">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/107c28baf07c586fef43ae754d6e3db7.jpg" alt="LifestyleWeb"></div></div><div class="work-overlay"><div class="work-overlay-label">[ website ]</div><div class="work-overlay-title">生活消費品牌官網</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ 014 ]</div><div class="work-company">生活消費品牌官網</div><div class="work-title">長榮航空・天下文化・旅遊等品牌網站</div><div class="work-tags-row"><span class="work-tag">Website</span><span class="work-tag">Various</span><span class="work-tag">Lifestyle</span></div></div>
+      <!-- 014 COMBA -->
+      <div class="work-card" data-category="website" data-lightbox='["works/107c28baf07c586fef43ae754d6e3db7.jpg","works/5a8095eee1e1ea3f8b1731035335cc79.jpg","works/Lifestyle_02.jpg","works/Lifestyle_08.jpg","works/d6971a3a4f722d22163ff9b2645171cd.jpg"]' data-company="COMBA" data-title="長榮航空・天下文化・旅遊等品牌網站">
+        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/107c28baf07c586fef43ae754d6e3db7.jpg" alt="LifestyleWeb"></div></div><div class="work-overlay"><div class="work-overlay-label">[ website ]</div><div class="work-overlay-title">COMBA</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 014 ]</div><div class="work-company">COMBA</div><div class="work-title">長榮航空・天下文化・旅遊等品牌網站</div><div class="work-tags-row"><span class="work-tag">Website</span><span class="work-tag">Various</span><span class="work-tag">Lifestyle</span></div></div>
       </div>
 
-      <!-- 017 活動網站精選 -->
-      <div class="work-card" data-category="campaign" data-lightbox='["works/Ballantine%27s_01.png","works/Ballantine%27s_02.png","works/Ballantine%27s_03.png","works/Ballantine%27s_04.png","works/Ballantine%27s_05.png","works/Ballantine%27s_06.png","works/Ballantine%27s_07.png","works/Ballantine%27s_08.png","works/EVENT_01.png","works/EVENT_02.png","works/EVENT_03.png","works/EVENT_04.png","works/EVENT_05.png","works/EVENT_06.png","works/FIN_01.png","works/FIN_02.png","works/Hami_01.png","works/Hami_02.png","works/KIRIN_02.png","works/KIRIN_03.png","works/KIRIN_04.png","works/sheratonhotel_02.png","works/toyota_01.png","works/toyota_02.png","works/SinoPac_01.png","works/SinoPac_02.png","works/Lifestyle_03.jpg","works/Lifestyle_04.jpg","works/travel_01.jpg","works/travel_02.jpg","works/travel_03.png","works/travel_04.jpg","works/travel_05.png","works/travel_06.jpg","works/under_01.jpg","works/under_02.jpg","works/under_03.jpg","works/pillow.jpg","works/victory_03.png","works/victory_04.png","works/victory_05.png","works/ASUS_04.png","works/ASUS_05.png"]' data-company="活動網站精選" data-title="多品牌活動網站・電商檔期視覺整合">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-laptop"><div class="mini-laptop-screen"><img src="works/EVENT_01.png" alt="活動網站精選"></div></div><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Multi-brand ]</div><div class="work-overlay-title">活動網站精選<br>多品牌活動視覺整合</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ 017 ]</div><div class="work-company">活動網站精選</div><div class="work-title">百齡壇・永豐・KIRIN 季節・Toyota・喜來登・黑松 FIN・Hami・旅遊電商・勝利羽球電商・ASUS 電商・內著・寢具・五月花</div><div class="work-desc">跨品牌活動網站、電商檔期、季節限定活動視覺設計合輯。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Multi-brand</span><span class="work-tag">Interactive</span></div></div>
+      <!-- 017 活動網站 -->
+      <div class="work-card" data-category="campaign" data-lightbox='["works/Ballantine%27s_01.png","works/Ballantine%27s_02.png","works/Ballantine%27s_03.png","works/Ballantine%27s_04.png","works/Ballantine%27s_05.png","works/Ballantine%27s_06.png","works/Ballantine%27s_07.png","works/Ballantine%27s_08.png","works/EVENT_01.png","works/EVENT_02.png","works/EVENT_03.png","works/EVENT_04.png","works/EVENT_05.png","works/EVENT_06.png","works/FIN_01.png","works/FIN_02.png","works/Hami_01.png","works/Hami_02.png","works/KIRIN_02.png","works/KIRIN_03.png","works/KIRIN_04.png","works/sheratonhotel_02.png","works/toyota_01.png","works/toyota_02.png","works/SinoPac_01.png","works/SinoPac_02.png","works/Lifestyle_03.jpg","works/Lifestyle_04.jpg","works/travel_01.jpg","works/travel_02.jpg","works/travel_03.png","works/travel_04.jpg","works/travel_05.png","works/travel_06.jpg","works/under_01.jpg","works/under_02.jpg","works/under_03.jpg","works/pillow.jpg","works/victory_03.png","works/victory_04.png","works/victory_05.png","works/ASUS_04.png","works/ASUS_05.png"]' data-company="活動網站" data-title="多品牌活動網站・電商檔期視覺整合">
+        <div class="work-img-wrap mockup-wrap"><div class="mini-laptop"><div class="mini-laptop-screen"><img src="works/EVENT_01.png" alt="活動網站"></div></div><div class="work-overlay"><div class="work-overlay-label">[ Campaign · Multi-brand ]</div><div class="work-overlay-title">活動網站<br>多品牌活動視覺整合</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 017 ]</div><div class="work-company">活動網站</div><div class="work-title">百齡壇・永豐・KIRIN 季節・Toyota・喜來登・黑松 FIN・Hami・旅遊電商・勝利羽球電商・ASUS 電商・內著・寢具・五月花</div><div class="work-desc">跨品牌活動網站、電商檔期、季節限定活動視覺設計合輯。</div><div class="work-tags-row"><span class="work-tag">Campaign</span><span class="work-tag">Multi-brand</span><span class="work-tag">Interactive</span></div></div>
       </div>
 
 
-      <!-- 022 美妝產品電商 (高解析,放大顯示) -->
-      <div class="work-card wide" data-category="ecommerce" data-lightbox='["works/Beauty_001.jpg","works/Beauty_0014.jpg","works/Beauty_002.jpg","works/Beauty_003.jpg","works/Beauty_004.jpg","works/beauty_0010.jpg","works/beauty_0011.jpg","works/beauty_0012.jpg","works/beauty_0013.jpg","works/beauty_0015.jpg","works/beauty_0016.jpg","works/beauty_005.jpg","works/beauty_006.jpg","works/beauty_007.jpg","works/beauty_008.jpg","works/beauty_009.jpg"]' data-company="美妝產品電商" data-title="美妝品電商視覺・產品攝影修圖">
-        <div class="work-img-wrap frame-wrap landscape"><img src="works/Beauty_001.jpg" alt="美妝產品電商"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce · Beauty ]</div><div class="work-overlay-title">美妝產品電商<br>產品視覺・電商檔期</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ 022 ]</div><div class="work-company">美妝產品電商</div><div class="work-title">美妝品電商視覺・產品攝影修圖</div><div class="work-tags-row"><span class="work-tag">E-commerce</span><span class="work-tag">Beauty</span><span class="work-tag">Retouching</span></div></div>
+      <!-- 022 品牌視覺設計 (高解析,放大顯示) -->
+      <div class="work-card wide" data-category="ecommerce" data-lightbox='["works/Beauty_001.jpg","works/Beauty_0014.jpg","works/Beauty_002.jpg","works/Beauty_003.jpg","works/Beauty_004.jpg","works/beauty_0010.jpg","works/beauty_0011.jpg","works/beauty_0012.jpg","works/beauty_0013.jpg","works/beauty_0015.jpg","works/beauty_0016.jpg","works/beauty_005.jpg","works/beauty_006.jpg","works/beauty_007.jpg","works/beauty_008.jpg","works/beauty_009.jpg"]' data-company="品牌視覺設計" data-title="美妝品電商視覺・產品攝影修圖">
+        <div class="work-img-wrap frame-wrap landscape"><img src="works/Beauty_001.jpg" alt="品牌視覺設計"><div class="work-overlay"><div class="work-overlay-label">[ E-commerce · Beauty ]</div><div class="work-overlay-title">品牌視覺設計<br>產品視覺・電商檔期</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 022 ]</div><div class="work-company">品牌視覺設計</div><div class="work-title">美妝品電商視覺・產品攝影修圖</div><div class="work-tags-row"><span class="work-tag">E-commerce</span><span class="work-tag">Beauty</span><span class="work-tag">Retouching</span></div></div>
       </div>
 
-      <!-- 029 ASUS 平面設計 -->
-      <div class="work-card" data-category="print" data-lightbox='["works/ASUS_01.png","works/ASUS_02.png","works/ASUS_03.png"]' data-company="ASUS 平面設計" data-title="產品 DM・包裝視覺・印刷品">
-        <div class="work-img-wrap frame-wrap portrait"><img src="works/ASUS_01.png" alt="ASUS 平面設計"><div class="work-overlay"><div class="work-overlay-label">[ Print · Graphic ]</div><div class="work-overlay-title">ASUS 平面設計</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ 029 ]</div><div class="work-company">ASUS 平面設計</div><div class="work-title">產品 DM・包裝視覺・印刷品</div><div class="work-tags-row"><span class="work-tag">Print</span><span class="work-tag">Graphic</span><span class="work-tag">3C</span></div></div>
-      </div>
-
-      <!-- 030b MM 論壇手冊 -->
-      <div class="work-card wide" data-category="print" data-lightbox='["works/MM_01.jpg","works/MM_02.jpg","works/MM_03.jpg","works/MM_04.jpg","works/MM_05.jpg","works/MM_06.jpg","works/MM_07.jpg","works/MM_08.jpg","works/MM_09.jpg","works/MM_10.jpg","works/MM_11.jpg","works/MM_12.jpg","works/MM_13.jpg","works/MM_14.jpg","works/MM_15.jpg","works/MM_16.jpg","works/MM_17.jpg","works/MM_18.jpg","works/MM_19.jpg","works/MM_20.jpg","works/MM_21.jpg","works/MM_22.jpg","works/MM_23.jpg","works/MM_24.jpg","works/MM_25.jpg","works/MM_26.jpg","works/MM_27.jpg","works/MM_28.jpg","works/MM_29.jpg","works/MM_30.jpg","works/MM_31.jpg","works/MM_32.jpg","works/MM_33.jpg","works/MM_34.jpg","works/MM_35.jpg","works/MM_36.jpg","works/MM_37.jpg","works/MM_38.jpg","works/MM_39.jpg","works/MM_40.jpg","works/MM_41.jpg","works/MM_42.jpg","works/MM_43.jpg","works/MM_44.jpg","works/MM_45.jpg","works/MM_46.jpg","works/MM_47.jpg","works/MM_48.jpg","works/MM_49.jpg","works/MM_50.jpg","works/MM_51.jpg","works/MM_52.jpg","works/MM_53.jpg","works/MM_54.jpg","works/MM_55.jpg","works/MM_56.jpg","works/MM_57.jpg","works/MM_58.jpg","works/MM_59.jpg","works/MM_60.jpg","works/MM_61.jpg","works/MM_62.jpg","works/MM_63.jpg","works/MM_64.jpg","works/MM_65.jpg","works/MM_66.jpg","works/MM_67.jpg","works/MM_68.jpg","works/MM_69.jpg"]' data-company="MM 論壇手冊" data-title="會議論壇手冊・全本 69 頁編排設計">
-        <div class="work-img-wrap frame-wrap landscape"><img src="works/MM_01.jpg" alt="MM 論壇手冊"><div class="work-overlay"><div class="work-overlay-label">[ Print · Editorial ]</div><div class="work-overlay-title">MM 論壇手冊<br>69 頁編排設計</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ 030 ]</div><div class="work-company">MM 論壇手冊</div><div class="work-title">會議論壇手冊・全本 69 頁編排設計</div><div class="work-tags-row"><span class="work-tag">Print</span><span class="work-tag">Editorial</span><span class="work-tag">Booklet</span></div></div>
-      </div>
-
-      <!-- 030c 喜咧夯肉 菜單 -->
-      <div class="work-card" data-category="print" data-lightbox='["works/Menu_01.jpg","works/Menu_02.jpg","works/Menu_03.jpg","works/Menu_04.jpg","works/Menu_05.jpg","works/Menu_06.jpg","works/Menu_07.jpg","works/Menu_08.jpg","works/Menu_09.jpg","works/Menu_10.jpg","works/Menu_11.jpg","works/Menu_12.jpg"]' data-company="喜咧夯肉 菜單" data-title="燒肉菜單・木板風格設計・12 頁">
-        <div class="work-img-wrap frame-wrap portrait"><img src="works/Menu_01.jpg" alt="喜咧夯肉 菜單"><div class="work-overlay"><div class="work-overlay-label">[ Print · F&amp;B ]</div><div class="work-overlay-title">喜咧夯肉 菜單<br>木板風格設計</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ 030 ]</div><div class="work-company">喜咧夯肉 菜單</div><div class="work-title">燒肉菜單・木板風格設計・12 頁</div><div class="work-tags-row"><span class="work-tag">Print</span><span class="work-tag">F&amp;B</span><span class="work-tag">Menu</span></div></div>
+      <!-- 029 平面設計 -->
+      <div class="work-card" data-category="print" data-lightbox='["works/ASUS_01.png","works/ASUS_02.png","works/ASUS_03.png","works/MM_01.jpg","works/MM_02.jpg","works/MM_03.jpg","works/MM_04.jpg","works/MM_05.jpg","works/MM_06.jpg","works/MM_07.jpg","works/MM_08.jpg","works/MM_09.jpg","works/MM_10.jpg","works/MM_11.jpg","works/MM_12.jpg","works/MM_13.jpg","works/MM_14.jpg","works/MM_15.jpg","works/MM_16.jpg","works/MM_17.jpg","works/MM_18.jpg","works/MM_19.jpg","works/MM_20.jpg","works/MM_21.jpg","works/MM_22.jpg","works/MM_23.jpg","works/MM_24.jpg","works/MM_25.jpg","works/MM_26.jpg","works/MM_27.jpg","works/MM_28.jpg","works/MM_29.jpg","works/MM_30.jpg","works/MM_31.jpg","works/MM_32.jpg","works/MM_33.jpg","works/MM_34.jpg","works/MM_35.jpg","works/MM_36.jpg","works/MM_37.jpg","works/MM_38.jpg","works/MM_39.jpg","works/MM_40.jpg","works/MM_41.jpg","works/MM_42.jpg","works/MM_43.jpg","works/MM_44.jpg","works/MM_45.jpg","works/MM_46.jpg","works/MM_47.jpg","works/MM_48.jpg","works/MM_49.jpg","works/MM_50.jpg","works/MM_51.jpg","works/MM_52.jpg","works/MM_53.jpg","works/MM_54.jpg","works/MM_55.jpg","works/MM_56.jpg","works/MM_57.jpg","works/MM_58.jpg","works/MM_59.jpg","works/MM_60.jpg","works/MM_61.jpg","works/MM_62.jpg","works/MM_63.jpg","works/MM_64.jpg","works/MM_65.jpg","works/MM_66.jpg","works/MM_67.jpg","works/MM_68.jpg","works/MM_69.jpg","works/Menu_01.jpg","works/Menu_02.jpg","works/Menu_03.jpg","works/Menu_04.jpg","works/Menu_05.jpg","works/Menu_06.jpg","works/Menu_07.jpg","works/Menu_08.jpg","works/Menu_09.jpg","works/Menu_10.jpg","works/Menu_11.jpg","works/Menu_12.jpg"]' data-company="平面設計" data-title="ASUS 印刷品・MM 論壇手冊・喜咧夯肉 菜單">
+        <div class="work-img-wrap frame-wrap portrait"><img src="works/ASUS_01.png" alt="平面設計"><div class="work-overlay"><div class="work-overlay-label">[ Print · Editorial ]</div><div class="work-overlay-title">平面設計</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 029 ]</div><div class="work-company">平面設計</div><div class="work-title">ASUS 印刷品・MM 論壇手冊・喜咧夯肉 菜單</div><div class="work-tags-row"><span class="work-tag">Print</span><span class="work-tag">Editorial</span><span class="work-tag">Graphic</span></div></div>
       </div>
 
       <!-- 022 社群與電商素材 -->
       <div class="work-card wide social-grid-card" data-category="social" data-lightbox='["works/ 高雄開幕慶3.jpg","works/HongRou_05.jpg","works/HongRou_07.jpg","works/HongRou_08.jpg","works/HongRou_09.jpg","works/HongRou_10.jpg","works/Hongrou_06.jpg","works/SM_01.png","works/SM_02.png","works/SM_03.png","works/SM_04.png","works/SM_05.png","works/SM_06.png","works/SM_07.png","works/SM_08.png","works/SM_09.png","works/SM_10.png","works/SM_11.png","works/SM_12.png","works/SM_21.png","works/SM_22.png","works/SM_32.png","works/SM_33.png","works/Valentino_01.jpg","works/Valentino_02.jpg","works/Valentino_03.jpg","works/Valentino_04.jpg","works/Valentino_05.jpg","works/Valentino_06.jpg","works/Valentino_07.jpg","works/fb2 (1).jpg","works/fb2_工作區域 1.jpg","works/飲料我們請.jpg","works/payeasy_03.png","works/payeasy_04.png","works/payeasy_05.png","works/payeasy_06.png","works/payeasy_07.png","works/payeasy_08.png","works/payeasy_09.png","works/payeasy_10.png","works/payeasy_11.png"]' data-company="社群與電商素材" data-title="Social Media + E-commerce Materials">
         <div class="social-section-header">
           <div class="social-section-num">[ 022 ]</div>
-          <h3 class="social-section-title">社群與電商素材精選</h3>
+          <h3 class="social-section-title">社群與電商素材</h3>
           <p class="social-section-desc">各品牌 FB / IG / LINE 社群素材・電商平台檔期視覺・餐飲品牌應用</p>
         </div>
         <div class="social-grid">
@@ -682,10 +673,8 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
             <div class="ai-folder-meta">[ AI · COLLABORATION ]</div>
             <div class="ai-folder-title">AI 協作作品集</div>
             <div class="ai-folder-desc">商品上架圖・社群素材・包裝視覺<br>共 <strong>10</strong> 件 AI 輔助設計作品。點擊開啟資料夾。</div>
-            <div class="ai-preview-strip">
-              <div class="ai-thumb"><img src="works/AI_01.jpg" alt="AI preview 1"></div>
-              <div class="ai-thumb"><img src="works/AI_02.jpg" alt="AI preview 2"></div>
-              <div class="ai-thumb"><img src="works/AI_03.jpg" alt="AI preview 3"></div>
+            <div class="ai-preview-strip single">
+              <div class="ai-thumb"><img src="works/AI_01.jpg" alt="AI preview"></div>
             </div>
           </div>
         </div>
