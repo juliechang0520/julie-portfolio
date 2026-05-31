@@ -706,7 +706,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 </footer>
 <script>
 // Password gate: SHA-256 hash (one-way), original password is NOT in source
-const PW_HASH = '859422e442e3cdeb1489a86ba49733c91fbbb85f883297f03d6982b9e9033c89';
+const PW_HASH = 'a60137bc7ec795af7d8d400de8f8f4d181afbb013d2550b63f0095fe01a30fbd';
 async function checkPassword(input) {
   if (!PW_HASH) return false;
   const buf = new TextEncoder().encode(input);
