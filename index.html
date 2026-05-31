@@ -231,8 +231,12 @@ section{padding:8rem 3rem}
 .lb-stage{position:relative;width:92vw;height:72vh;overflow:hidden;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);background:#000}
 .lb-stage.zoomed{cursor:grab}
 .lb-stage.zoomed.dragging{cursor:grabbing}
+.lb-stage.scroll-mode{overflow-y:auto;overflow-x:hidden;align-items:flex-start;cursor:default}
+.lb-stage.scroll-mode::-webkit-scrollbar{width:8px}
+.lb-stage.scroll-mode::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px}
 #lightbox img{max-width:100%;max-height:100%;object-fit:contain;display:block;transform-origin:center center;transition:transform 0.25s cubic-bezier(0.16,1,0.3,1);user-select:none;-webkit-user-drag:none;pointer-events:none}
 .lb-stage.zoomed img{transition:none}
+.lb-stage.scroll-mode img{max-height:none;max-width:1100px;width:100%;height:auto;object-fit:initial;transition:none;margin:0 auto}
 .lb-info{text-align:center}
 .lb-company{font-family:var(--mono);font-size:0.8rem;color:var(--accent);margin-bottom:0.3rem}
 .lb-title{font-size:0.82rem;color:var(--text)}
@@ -484,8 +488,8 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
       </div>
 
       <!-- 002 台灣百和 PAIHO -->
-      <div class="work-card" data-category="integrated" data-lightbox='["works/Paiho_01.png"]' data-company="台灣百和 PAIHO" data-title="企業官網與 ESG 永續網站視覺企劃">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/Paiho_01.png" alt="Paiho"></div></div><div class="work-overlay"><div class="work-overlay-label">[ integrated ]</div><div class="work-overlay-title">台灣百和 PAIHO</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card wide" data-category="integrated" data-lightbox='["works/Paiho_01.png"]' data-company="台灣百和 PAIHO" data-title="企業官網與 ESG 永續網站視覺企劃">
+        <div class="work-img-wrap frame-wrap landscape"><img src="works/Paiho_01.png" alt="台灣百和 PAIHO"><div class="work-overlay"><div class="work-overlay-label">[ UI/UX · Corporate ]</div><div class="work-overlay-title">台灣百和 PAIHO<br>官網 + ESG 永續網站</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 002 ]</div><div class="work-company">台灣百和 PAIHO</div><div class="work-title">企業官網與 ESG 永續網站視覺企劃</div><div class="work-tags-row"><span class="work-tag">UI/UX</span><span class="work-tag">Corporate</span><span class="work-tag">ESG</span></div></div>
       </div>
 
@@ -496,9 +500,9 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
       </div>
 
       <!-- 004 GagaOOLala 跨國多螢平台 -->
-      <div class="work-card" data-category="integrated" data-lightbox='["works/GagaOOLala_App01.png","works/GagaOOLala_App02.png","works/GagaOOLala_TV01.png","works/GagaOOLala_TV02.png","works/GagaOOLala_TV03.png","works/GagaOOLala_desktop01.png","works/GagaOOLala_desktop02.png","works/GagaOOLala_mobil01.png","works/GagaOOLala_mobil02.png"]' data-company="GagaOOLala 跨國多螢平台" data-title="App・TV・Desktop・Mobile 多螢視覺整合">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/GagaOOLala_App01.png" alt="GagaOOLala"></div></div><div class="work-overlay"><div class="work-overlay-label">[ integrated ]</div><div class="work-overlay-title">GagaOOLala 跨國多螢平台</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ 004 ]</div><div class="work-company">GagaOOLala 跨國多螢平台</div><div class="work-title">App・TV・Desktop・Mobile 多螢視覺整合</div><div class="work-tags-row"><span class="work-tag">UI/UX</span><span class="work-tag">Multi-screen</span><span class="work-tag">iOS/Android/TV</span></div></div>
+      <div class="work-card" data-category="integrated" data-lightbox='["works/GagaOOLala_desktop01.png","works/GagaOOLala_desktop02.png","works/GagaOOLala_TV01.png","works/GagaOOLala_TV02.png","works/GagaOOLala_TV03.png","works/GagaOOLala_App01.png","works/GagaOOLala_App02.png","works/GagaOOLala_mobil01.png","works/GagaOOLala_mobil02.png"]' data-company="GagaOOLala 跨國多螢平台" data-title="App・TV・Desktop・Mobile 多螢視覺整合">
+        <div class="work-img-wrap mockup-wrap"><div class="mini-laptop"><div class="mini-laptop-screen"><img src="works/GagaOOLala_desktop01.png" alt="GagaOOLala Desktop"></div></div><div class="work-overlay"><div class="work-overlay-label">[ integrated · Desktop+ ]</div><div class="work-overlay-title">GagaOOLala 跨國多螢平台</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 004 ]</div><div class="work-company">GagaOOLala 跨國多螢平台</div><div class="work-title">Desktop・TV・App・Mobile 多螢視覺整合</div><div class="work-tags-row"><span class="work-tag">UI/UX</span><span class="work-tag">Multi-screen</span><span class="work-tag">iOS/Android/TV</span></div></div>
       </div>
 
       <!-- 005 NVIDIA 小程序 -->
@@ -521,19 +525,19 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 
       <!-- 008 肯夢 AVEDA -->
       <div class="work-card" data-category="website" data-lightbox='["works/Aveda_01.png","works/Aveda_02.png"]' data-company="肯夢 AVEDA" data-title="官網改版視覺規劃・美妝品牌">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/Aveda_01.png" alt="Aveda"></div></div><div class="work-overlay"><div class="work-overlay-label">[ website ]</div><div class="work-overlay-title">肯夢 AVEDA</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-img-wrap mockup-wrap"><div class="mini-laptop"><div class="mini-laptop-screen"><img src="works/Aveda_01.png" alt="Aveda Desktop"></div></div><div class="work-overlay"><div class="work-overlay-label">[ Website · Beauty ]</div><div class="work-overlay-title">肯夢 AVEDA<br>官網改版視覺規劃</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 008 ]</div><div class="work-company">肯夢 AVEDA</div><div class="work-title">官網改版視覺規劃・美妝品牌</div><div class="work-tags-row"><span class="work-tag">Website</span><span class="work-tag">Beauty</span><span class="work-tag">RWD</span></div></div>
       </div>
 
       <!-- 009 KIRIN -->
-      <div class="work-card" data-category="website" data-lightbox='["works/KIRIN_01.png","works/KIRIN_05.png","works/KIRIN_06.png","works/KIRIN_07.png","works/KIRIN_08.png"]' data-company="KIRIN" data-title="日本飲料品牌官網・季節限定產品頁">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-laptop"><div class="mini-laptop-screen"><img src="works/KIRIN_01.png" alt="KIRIN"></div></div><div class="work-overlay"><div class="work-overlay-label">[ website ]</div><div class="work-overlay-title">KIRIN</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card" data-category="website" data-lightbox='["works/KIRIN_01.jpg","works/KIRIN_01_1.jpg","works/KIRIN_05.png","works/KIRIN_06.png","works/KIRIN_07.png","works/KIRIN_08.png"]' data-company="KIRIN" data-title="日本飲料品牌官網・季節限定產品頁">
+        <div class="work-img-wrap mockup-wrap"><div class="mini-laptop"><div class="mini-laptop-screen"><img src="works/KIRIN_01.jpg" alt="KIRIN"></div></div><div class="work-overlay"><div class="work-overlay-label">[ website ]</div><div class="work-overlay-title">KIRIN</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 009 ]</div><div class="work-company">KIRIN</div><div class="work-title">日本飲料品牌官網・季節限定產品頁</div><div class="work-tags-row"><span class="work-tag">Website</span><span class="work-tag">Beverage</span><span class="work-tag">Seasonal</span></div></div>
       </div>
 
       <!-- 010 LP33 -->
-      <div class="work-card" data-category="website" data-lightbox='["works/LP33_01.png","works/LP33_02.png","works/LP33_03.png","works/LP33_04.png"]' data-company="LP33" data-title="保健品官網・電商購物流程">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-laptop"><div class="mini-laptop-screen"><img src="works/LP33_01.png" alt="LP33"></div></div><div class="work-overlay"><div class="work-overlay-label">[ website ]</div><div class="work-overlay-title">LP33</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card" data-category="website" data-lightbox='["works/LP33_01.jpg","works/LP33_02.png","works/LP33_03.png","works/LP33_04.png"]' data-company="LP33" data-title="保健品官網・電商購物流程">
+        <div class="work-img-wrap mockup-wrap"><div class="mini-laptop"><div class="mini-laptop-screen"><img src="works/LP33_01.jpg" alt="LP33"></div></div><div class="work-overlay"><div class="work-overlay-label">[ website ]</div><div class="work-overlay-title">LP33</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 010 ]</div><div class="work-company">LP33</div><div class="work-title">保健品官網・電商購物流程</div><div class="work-tags-row"><span class="work-tag">Website</span><span class="work-tag">Healthcare</span><span class="work-tag">E-commerce</span></div></div>
       </div>
 
@@ -550,8 +554,8 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
       </div>
 
       <!-- 013 勝利羽球 -->
-      <div class="work-card" data-category="website" data-lightbox='["works/victory_01.png","works/victory_02.png"]' data-company="勝利羽球" data-title="運動產品官網・全程攝影製作">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/victory_01.png" alt="Victory"></div></div><div class="work-overlay"><div class="work-overlay-label">[ website ]</div><div class="work-overlay-title">勝利羽球</div><div class="work-overlay-arrow">↗</div></div></div>
+      <div class="work-card" data-category="website" data-lightbox='["works/victory_01.jpg","works/victory_02.png"]' data-company="勝利羽球" data-title="運動產品官網・全程攝影製作">
+        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/victory_01.jpg" alt="Victory"></div></div><div class="work-overlay"><div class="work-overlay-label">[ website ]</div><div class="work-overlay-title">勝利羽球</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 013 ]</div><div class="work-company">勝利羽球</div><div class="work-title">運動產品官網・全程攝影製作</div><div class="work-tags-row"><span class="work-tag">Website</span><span class="work-tag">Sports</span><span class="work-tag">Product</span></div></div>
       </div>
 
@@ -623,7 +627,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 
       <!-- 025 ASUS 電商 -->
       <div class="work-card" data-category="ecommerce" data-lightbox='["works/ASUS_04.png","works/ASUS_05.png"]' data-company="ASUS 電商" data-title="ASUS 電商平台維運素材">
-        <div class="work-img-wrap mockup-wrap"><div class="mini-phone"><div class="mini-phone-screen"><img src="works/ASUS_04.png" alt="ASUSEC"></div></div><div class="work-overlay"><div class="work-overlay-label">[ ecommerce ]</div><div class="work-overlay-title">ASUS 電商</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-img-wrap frame-wrap"><img src="works/ASUS_04.png" alt="ASUS 電商"><div class="work-overlay"><div class="work-overlay-label">[ ecommerce ]</div><div class="work-overlay-title">ASUS 電商</div><div class="work-overlay-arrow">↗</div></div></div>
         <div class="work-info"><div class="work-num">[ 025 ]</div><div class="work-company">ASUS 電商</div><div class="work-title">ASUS 電商平台維運素材</div><div class="work-tags-row"><span class="work-tag">E-commerce</span><span class="work-tag">3C</span><span class="work-tag">Retouching</span></div></div>
       </div>
 
@@ -941,24 +945,31 @@ function clampPan(){
 // Programmatic opener (used by phone showcase)
 window.__phoneLightboxOpen=function(imgs,startIdx,company,title){
   currentImages=imgs;lbIdx=startIdx||0;
-  resetZoom();
-  lbImg.src=currentImages[lbIdx];
   lbCompany.textContent=company||'';
   lbTitle.textContent=title||'';
+  loadImage(lbIdx);
   lb.classList.add('open');
 };
 function loadImage(idx){
   resetZoom();
+  lbStage.classList.remove('scroll-mode');
   lbImg.src=currentImages[idx];
+  // After image loads, decide if scroll-mode needed (very tall images)
+  lbImg.onload=()=>{
+    const r = lbImg.naturalWidth / lbImg.naturalHeight;
+    if(r < 0.55 && lbImg.naturalHeight > 2000){
+      lbStage.classList.add('scroll-mode');
+      lbStage.scrollTop = 0;
+    }
+  };
 }
 document.querySelectorAll('.work-card').forEach(card=>{
   card.addEventListener('click',()=>{
     const raw=card.dataset.lightbox;if(!raw)return;
     currentImages=JSON.parse(raw);lbIdx=0;
-    resetZoom();
-    lbImg.src=currentImages[0];
     lbCompany.textContent=card.dataset.company||'';
     lbTitle.textContent=card.dataset.title||'';
+    loadImage(0);
     lb.classList.add('open');
   });
 });
