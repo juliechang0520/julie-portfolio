@@ -1218,15 +1218,14 @@ document.addEventListener('keydown',e=>{
   if(ct){
     var cc=splitChars(ct,'ch');
     if(reduce || !hasST){ gsap.set(cc,{opacity:1,y:0}); }
-    else { gsap.set(cc,{opacity:0,y:34}); gsap.to(cc,{opacity:1,y:0,duration:0.7,ease:'back.out(1.6)',stagger:0.045,scrollTrigger:{trigger:'#contact', start:'top 72%', once:true}}); }
+    else { gsap.fromTo(cc,{opacity:0,y:34},{opacity:1,y:0,duration:0.7,ease:'back.out(1.6)',stagger:0.045,scrollTrigger:{trigger:'#contact', start:'top 80%', toggleActions:'restart reset restart reset'}}); }
   }
   // D) infinity: slide in from right + gentle float
   var inf=document.getElementById('infinityStat');
   if(inf){
     if(reduce || !hasST){ gsap.set(inf,{opacity:1,x:0}); }
     else {
-      gsap.set(inf,{opacity:0,x:150});
-      gsap.to(inf,{opacity:1,x:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:inf, start:'top 85%', once:true}});
+      gsap.fromTo(inf,{opacity:0,x:150},{opacity:1,x:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:inf, start:'top 88%', toggleActions:'restart reset restart reset'}});
       var sym=document.getElementById('infSym');
       if(sym) gsap.to(sym,{y:-12,duration:2.6,ease:'sine.inOut',yoyo:true,repeat:-1});
     }
