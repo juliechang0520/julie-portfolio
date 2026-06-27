@@ -356,6 +356,8 @@ section[id]{scroll-margin-top:84px}
 .scrollglow .ch{will-change:opacity}
 .contact-title .lasso-target{position:relative;display:inline-block}
 .lasso-svg{position:absolute;left:-10%;top:-22%;width:120%;height:150%;overflow:visible;pointer-events:none;z-index:3}
+.hero-title.gsap-hero .block{overflow:visible}
+.hero-title.gsap-hero .inner{transform:none !important}
 </style>
 </head>
 <body>
@@ -795,7 +797,7 @@ function startHero(){
   setTimeout(()=>loader.style.display='none',600);
   setTimeout(()=>{
     document.getElementById('heroTag').style.cssText='opacity:1;transition:opacity 0.8s 0.2s';
-    document.querySelectorAll('.hero-title .inner').forEach((el,i)=>{el.style.cssText='transform:translateY(0);transition:transform 1s cubic-bezier(0.16,1,0.3,1) '+(0.4+i*0.18)+'s';});var __hr=document.getElementById('heroRule');if(__hr)__hr.style.cssText='transform:scaleX(1);transition:transform 0.9s cubic-bezier(0.16,1,0.3,1) 1s';
+    document.querySelectorAll('.hero-title .inner').forEach((el,i)=>{el.style.cssText='transform:translateY(0);transition:transform 1s cubic-bezier(0.16,1,0.3,1) '+(0.4+i*0.18)+'s';});var __hr=document.getElementById('heroRule');if(__hr)__hr.style.cssText='transform:scaleX(1);transition:transform 0.9s cubic-bezier(0.16,1,0.3,1) 1s';if(window.heroCharsIn)window.heroCharsIn();
     document.getElementById('heroTitle').style.opacity='1';
     setTimeout(()=>{document.getElementById('heroSub').style.cssText='opacity:1;transition:opacity 0.8s';},900);
   },200);
@@ -1228,10 +1230,21 @@ document.addEventListener('keydown',e=>{
             var sp=document.createElement('span'); sp.className=cls; sp.style.display='inline-block'; sp.textContent=ch; out.push(sp); frag.appendChild(sp);
           }
           node.replaceChild(frag,n);
-        } else if(n.nodeType===1 && n.tagName!=='BR' && !(n.getAttribute && n.getAttribute('class')==='lasso-svg')){ walk(n); }
+        } else if(n.nodeType===1 && n.tagName!=='BR'){ walk(n); }
       });
     }
     walk(el); return out;
+  }
+  // Hero JULIE CHANG playful char entrance (fired by loader via window.heroCharsIn)
+  var ht=document.getElementById('heroTitle');
+  if(ht){
+    ht.classList.add('gsap-hero');
+    if(!reduce){
+      var hch=[];
+      ht.querySelectorAll('.inner').forEach(function(inner){ hch=hch.concat(splitChars(inner,'hch')); });
+      gsap.set(hch,{opacity:0,y:50,rotation:-8});
+      window.heroCharsIn=function(){ if(window.__heroDone)return; window.__heroDone=true; gsap.to(hch,{opacity:1,y:0,rotation:0,duration:0.8,ease:'back.out(1.7)',stagger:0.045}); };
+    }
   }
   // A) About headline: scroll-scrub brighten
   var glow=document.querySelector('.scrollglow');
@@ -1240,30 +1253,12 @@ document.addEventListener('keydown',e=>{
     if(reduce || !hasST){ gsap.set(gc,{opacity:1}); }
     else { gsap.set(gc,{opacity:0.22}); gsap.to(gc,{opacity:1, ease:'none', stagger:0.4, scrollTrigger:{trigger:glow, start:'top 80%', end:'top 30%', scrub:true}}); }
   }
-  // C) hand-drawn lasso around 好的設計
-  function drawLasso(){
-    var tgt=document.querySelector('.contact-title .lasso-target');
-    if(!tgt || tgt.querySelector('.lasso-svg')) return;
-    var ns='http://www.w3.org/2000/svg';
-    var svg=document.createElementNS(ns,'svg'); svg.setAttribute('class','lasso-svg'); svg.setAttribute('viewBox','0 0 320 140'); svg.setAttribute('preserveAspectRatio','none');
-    var path=document.createElementNS(ns,'path');
-    path.setAttribute('d','M30,86 C50,40 130,22 196,28 C270,34 306,64 292,92 C280,116 182,126 110,120 C44,114 6,96 36,66');
-    path.setAttribute('fill','none'); path.setAttribute('stroke','#c2a878'); path.setAttribute('stroke-width','4'); path.setAttribute('stroke-linecap','round');
-    svg.appendChild(path); tgt.appendChild(svg);
-    var len=path.getTotalLength(); path.style.strokeDasharray=len; path.style.strokeDashoffset=len;
-    if(reduce){ path.style.strokeDashoffset=0; return; }
-    gsap.to(path,{strokeDashoffset:0, duration:0.9, ease:'power2.inOut', delay:0.15});
-  }
-  // B) Contact title: char pop-in entrance, then lasso
+  // B) Contact title: char pop-in only
   var ct=document.querySelector('.contact-title.splitin');
   if(ct){
     var cc=splitChars(ct,'ch');
-    if(reduce || !hasST){ gsap.set(cc,{opacity:1,y:0}); drawLasso(); }
-    else {
-      gsap.set(cc,{opacity:0,y:34});
-      gsap.to(cc,{opacity:1,y:0,duration:0.7,ease:'back.out(1.6)',stagger:0.045,
-        scrollTrigger:{trigger:'#contact', start:'top 72%', once:true}, onComplete:drawLasso});
-    }
+    if(reduce || !hasST){ gsap.set(cc,{opacity:1,y:0}); }
+    else { gsap.set(cc,{opacity:0,y:34}); gsap.to(cc,{opacity:1,y:0,duration:0.7,ease:'back.out(1.6)',stagger:0.045,scrollTrigger:{trigger:'#contact', start:'top 72%', once:true}}); }
   }
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ if(hasST) ScrollTrigger.refresh(); }); }
 })();
