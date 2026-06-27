@@ -93,13 +93,13 @@ section{padding:8rem 3rem}
 .filter-btn:last-child{border-right:none}
 .filter-btn.active,.filter-btn:hover{background:var(--accent);color:var(--bg)}
 .works-masonry{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;background:transparent;padding:0 1rem}
-.work-card{background:linear-gradient(135deg,#141414 0%,#0d0d0d 100%);position:relative;overflow:hidden;cursor:none;display:flex;flex-direction:column;border:1px solid var(--border);transition:border-color 0.4s,transform 0.4s}
-.work-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.work-card{background:linear-gradient(135deg,#141414 0%,#0d0d0d 100%);position:relative;overflow:hidden;cursor:none;display:flex;flex-direction:column;border:1px solid var(--border);transition:border-color 0.5s cubic-bezier(0.16,1,0.3,1),transform 0.5s cubic-bezier(0.16,1,0.3,1),box-shadow 0.5s ease}
+.work-card:hover{border-color:var(--accent);transform:translateY(-6px);box-shadow:0 18px 40px -16px rgba(0,0,0,0.6),0 0 0 1px rgba(194,168,120,0.25),0 0 32px -10px rgba(194,168,120,0.3)}
 .work-card.wide{grid-column:span 2}
 .work-img-wrap{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:var(--bg3);flex-shrink:0}
 .work-card.wide .work-img-wrap{aspect-ratio:21/9}
 .work-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1),filter 0.4s;filter:grayscale(20%)}
-.work-card:hover .work-img-wrap img{transform:scale(1.06);filter:grayscale(0%)}
+.work-card:hover .work-img-wrap img{transform:scale(1.08);filter:grayscale(0%)}
 .work-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,13,13,0.95) 0%,rgba(13,13,13,0.2) 60%,transparent 100%);opacity:0;transition:opacity 0.4s;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;pointer-events:none}
 .work-card:hover .work-overlay{opacity:1}
 .work-overlay-label{font-family:var(--mono);font-size:0.58rem;color:var(--accent);letter-spacing:0.2em;margin-bottom:0.4rem}
@@ -276,7 +276,7 @@ section{padding:8rem 3rem}
 .lb-nav{display:flex;gap:1rem}
 .lb-btn{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;color:var(--muted);background:none;border:1px solid var(--border);padding:0.5rem 1.25rem;cursor:none;transition:all 0.3s}
 .lb-btn:hover{color:var(--text);border-color:var(--text)}
-#contact{text-align:center;padding:10rem 3rem}
+#contact{text-align:center;padding:10rem 3rem;position:relative;overflow:hidden}
 .contact-label{font-family:var(--mono);font-size:0.7rem;color:var(--muted);letter-spacing:0.3em;margin-bottom:2rem}
 .contact-title{font-family:var(--mono);font-size:clamp(2rem,5vw,5rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:3rem;line-height:1}
 .contact-title em{font-style:normal;color:var(--accent)}
@@ -329,9 +329,37 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 .hero-visual canvas{width:100%;height:100%;display:block}
 @media (max-width:768px){ .hero-content{max-width:100%} .hero-visual{opacity:0.55} }
 @media (prefers-reduced-motion: reduce){ .hero-visual canvas{opacity:0.9} }
+
+nav{transition:padding 0.4s ease, background 0.4s ease, backdrop-filter 0.4s ease}
+nav.scrolled{padding:0.85rem 3rem;background:rgba(18,18,18,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);mix-blend-mode:normal;border-bottom:1px solid var(--border)}
+@media (max-width:768px){ nav.scrolled{padding:0.85rem 1.5rem} }
+.exp-list{position:relative;padding-left:1.8rem}
+.exp-list::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border);transform:scaleY(0);transform-origin:top center;transition:transform 1.2s cubic-bezier(0.16,1,0.3,1)}
+.exp-list.drawn::before{transform:scaleY(1)}
+.exp-list .exp-item{position:relative}
+.exp-list .exp-item::before{content:'';position:absolute;left:calc(-1.8rem - 3px);top:3.2rem;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--bg)}
+@media (max-width:768px){ .exp-list{padding-left:1.4rem} .exp-list .exp-item::before{left:calc(-1.4rem - 3px);top:3.4rem} }
+@media (prefers-reduced-motion: reduce){ .exp-list::before{transform:scaleY(1) !important} }
+
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left center;z-index:200;pointer-events:none}
+@media (prefers-reduced-motion: no-preference){ @supports (animation-timeline: scroll()){ .scroll-progress{animation:scrollProg linear both;animation-timeline:scroll(root)} } }
+@keyframes scrollProg{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.work-card.wreveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+.work-card.wreveal.in{opacity:1;transform:none}
+section[id]{scroll-margin-top:84px}
+@media (prefers-reduced-motion: reduce){ .work-card.wreveal{opacity:1 !important;transform:none !important} }
+
+#contact>canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.contact-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 55% 70% at center,rgba(18,18,18,0.85) 0%,rgba(18,18,18,0.4) 50%,rgba(18,18,18,0) 82%)}
+#contact .contact-label,#contact .contact-title,#contact .contact-btn{position:relative;z-index:2}
+
+.scrollglow .ch{will-change:opacity}
+.contact-title .lasso-target{position:relative;display:inline-block}
+.lasso-svg{position:absolute;left:-10%;top:-22%;width:120%;height:150%;overflow:visible;pointer-events:none;z-index:3}
 </style>
 </head>
 <body>
+<div class="scroll-progress" aria-hidden="true"></div>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <div id="loader">
@@ -349,6 +377,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
   </ul>
   <button class="nav-menu-btn" id="menuBtn">☰</button>
 </nav>
+<span id="navSentinel" aria-hidden="true" style="position:absolute;top:1px;left:0;width:1px;height:1px;pointer-events:none"></span>
 <div class="mobile-nav" id="mobileNav">
   <button class="mobile-nav-close" id="menuClose">[ CLOSE ]</button>
   <ul class="mobile-nav-links">
@@ -411,7 +440,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
     </div>
     <div class="about-grid">
       <div class="about-text">
-        <h2 class="reveal">從視覺設計出發，<br><em>用介面說故事</em></h2>
+        <h2 class="scrollglow">從視覺設計出發，<br><em>用介面說故事</em></h2>
         <p class="reveal reveal-delay-1">擁有超過 20 年的視覺設計經驗，從平面到數位，從品牌識別到複雜的多平台應用程式介面，持續在每一個專案中追求設計與使用者體驗的最佳平衡點。</p>
         <p class="reveal reveal-delay-2">曾任職於數位設計公司及新創公司，服務過汽車、科技、影音串流、旅遊、金融、美妝等各產業品牌，擅長在複雜的需求中找到清晰的設計語言。</p>
         <div class="skills-tags reveal reveal-delay-3">
@@ -434,6 +463,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
       <span class="section-title">( EXPERIENCE )</span>
       <div class="section-line"></div>
     </div>
+    <div class="exp-list">
     <div class="exp-item reveal">
       <div class="exp-period">2022 ~ Present</div>
       <div>
@@ -489,6 +519,7 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
         <div class="exp-role">視覺設計・產品介面・使用者體驗規劃</div>
         <div class="exp-tags"><span class="exp-tag">Visual Design</span><span class="exp-tag">Product UI</span><span class="exp-tag">UX Planning</span></div>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -723,8 +754,10 @@ footer{padding:2rem 3rem;border-top:1px solid var(--border);display:flex;justify
 
 <!-- Contact -->
 <section id="contact">
+  <canvas id="contactCanvas" aria-hidden="true"></canvas>
+  <div class="contact-scrim" aria-hidden="true"></div>
   <p class="contact-label reveal">[ GET IN TOUCH ]</p>
-  <h2 class="contact-title reveal reveal-delay-1">一起創造<br><em>好的設計</em></h2>
+  <h2 class="contact-title splitin">一起創造<br><em class="lasso-target">好的設計</em></h2>
   <a href="mailto:juliechangsite@gmail.com" class="contact-btn reveal reveal-delay-2">[ CONTACT ME ]</a>
 </section>
 <footer>
@@ -1078,6 +1111,19 @@ document.addEventListener('keydown',e=>{
   }
 });
 </script>
+<script>
+(function(){
+  var nav=document.querySelector('nav'), sent=document.getElementById('navSentinel');
+  if(nav&&sent&&'IntersectionObserver' in window){ new IntersectionObserver(function(es){es.forEach(function(e){ nav.classList.toggle('scrolled', !e.isIntersecting); });},{threshold:0}).observe(sent); }
+  var list=document.querySelector('.exp-list');
+  if(list&&'IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(e.isIntersecting){ list.classList.add('drawn'); io.unobserve(list); } });},{threshold:0.15}); io.observe(list); }
+  document.querySelectorAll('#experience .exp-item').forEach(function(el,i){ el.style.transitionDelay=(0.07*i)+'s'; });
+  if('IntersectionObserver' in window){
+    var wob=new IntersectionObserver(function(es){ var n=0; es.forEach(function(e){ if(e.isIntersecting){ e.target.style.transitionDelay=(n*0.06)+'s'; n++; e.target.classList.add('in'); wob.unobserve(e.target); } }); },{threshold:0.1});
+    document.querySelectorAll('.work-card').forEach(function(c){ c.classList.add('wreveal'); wob.observe(c); });
+  }
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.136.0/build/three.min.js"></script>
 <script>
 (function(){
@@ -1123,6 +1169,103 @@ document.addEventListener('keydown',e=>{
   if(reduce){ render(); return; }
   renderer.setAnimationLoop(render);
   try{ var io=new IntersectionObserver(function(es){es.forEach(function(e){ renderer.setAnimationLoop(e.isIntersecting?render:null); });},{threshold:0.01}); io.observe(canvas); }catch(e){}
+})();
+</script>
+<script>
+(function(){
+  function go(){
+    if(!window.THREE){ return setTimeout(go,150); }
+    var canvas=document.getElementById('contactCanvas'); if(!canvas) return;
+    var THREE=window.THREE, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var w=canvas.clientWidth||1,h=canvas.clientHeight||1;
+    var renderer; try{renderer=new THREE.WebGLRenderer({canvas:canvas,alpha:true,antialias:true});}catch(e){return;}
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)); renderer.setSize(w,h,false);
+    var scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(60,w/h,1,1000); camera.position.set(0,4,21);
+    var gu={time:{value:0}},sizes=[],shift=[];
+    function ps(){shift.push(Math.random()*Math.PI,Math.random()*Math.PI*2,(Math.random()*0.9+0.1)*Math.PI*0.1,Math.random()*0.9+0.1);}
+    var mob=window.innerWidth<768, nS=mob?9000:20000, nD=mob?18000:42000;
+    var pts=new Array(nS).fill().map(function(){sizes.push(Math.random()*1.5+0.5);ps();return new THREE.Vector3().randomDirection().multiplyScalar(Math.random()*0.5+9.5);});
+    for(var i=0;i<nD;i++){var r=10,R=40,rand=Math.pow(Math.random(),1.5),radius=Math.sqrt(R*R*rand+(1-rand)*r*r);pts.push(new THREE.Vector3().setFromCylindricalCoords(radius,Math.random()*2*Math.PI,(Math.random()-0.5)*2));sizes.push(Math.random()*1.5+0.5);ps();}
+    var g=new THREE.BufferGeometry().setFromPoints(pts);
+    g.setAttribute("sizes",new THREE.Float32BufferAttribute(sizes,1)); g.setAttribute("shift",new THREE.Float32BufferAttribute(shift,4));
+    var m=new THREE.PointsMaterial({size:0.125,transparent:true,depthTest:false,blending:THREE.AdditiveBlending,onBeforeCompile:function(sh){
+      sh.uniforms.time=gu.time;
+      sh.vertexShader="uniform float time;\nattribute float sizes;\nattribute vec4 shift;\nvarying vec3 vColor;\n"+sh.vertexShader;
+      sh.vertexShader=sh.vertexShader.replace("gl_PointSize = size;","gl_PointSize = size * sizes;");
+      sh.vertexShader=sh.vertexShader.replace("#include <color_vertex>","#include <color_vertex>\nfloat d=length(abs(position)/vec3(40.,10.,40.));d=clamp(d,0.,1.);vColor=mix(vec3(150.,112.,64.),vec3(245.,232.,205.),d)/255.;\n");
+      sh.vertexShader=sh.vertexShader.replace("#include <begin_vertex>","#include <begin_vertex>\nfloat t=time;float moveT=mod(shift.x+shift.z*t,PI2);float moveS=mod(shift.y+shift.z*t,PI2);transformed+=vec3(cos(moveS)*sin(moveT),cos(moveT),sin(moveS)*sin(moveT))*shift.w;\n");
+      sh.fragmentShader="varying vec3 vColor;\n"+sh.fragmentShader;
+      sh.fragmentShader=sh.fragmentShader.replace("#include <clipping_planes_fragment>","#include <clipping_planes_fragment>\nfloat d=length(gl_PointCoord.xy-0.5);\n");
+      sh.fragmentShader=sh.fragmentShader.replace("vec4 diffuseColor = vec4( diffuse, opacity );","vec4 diffuseColor = vec4( vColor, smoothstep(0.5,0.1,d) );");
+    }});
+    var P=new THREE.Points(g,m); P.rotation.order="ZYX"; P.rotation.z=0.2; scene.add(P);
+    var clock=new THREE.Clock();
+    window.addEventListener("resize",function(){w=canvas.clientWidth||1;h=canvas.clientHeight||1;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);});
+    function render(){var t=clock.getElapsedTime()*0.5;gu.time.value=t*Math.PI;P.rotation.y=t*0.05;camera.lookAt(0,0,0);renderer.render(scene,camera);}
+    if(reduce){render();return;}
+    renderer.setAnimationLoop(render);
+    try{var io=new IntersectionObserver(function(es){es.forEach(function(e){renderer.setAnimationLoop(e.isIntersecting?render:null);});},{threshold:0.01});io.observe(canvas);}catch(e){}
+  }
+  go();
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  if(!window.gsap) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasST=!!window.ScrollTrigger;
+  if(hasST) gsap.registerPlugin(ScrollTrigger);
+  function splitChars(el, cls){
+    var out=[];
+    function walk(node){
+      Array.prototype.slice.call(node.childNodes).forEach(function(n){
+        if(n.nodeType===3){
+          var t=n.nodeValue, frag=document.createDocumentFragment();
+          for(var i=0;i<t.length;i++){ var ch=t[i];
+            if(ch===' '){ frag.appendChild(document.createTextNode(' ')); continue; }
+            var sp=document.createElement('span'); sp.className=cls; sp.style.display='inline-block'; sp.textContent=ch; out.push(sp); frag.appendChild(sp);
+          }
+          node.replaceChild(frag,n);
+        } else if(n.nodeType===1 && n.tagName!=='BR' && !(n.getAttribute && n.getAttribute('class')==='lasso-svg')){ walk(n); }
+      });
+    }
+    walk(el); return out;
+  }
+  // A) About headline: scroll-scrub brighten
+  var glow=document.querySelector('.scrollglow');
+  if(glow){
+    var gc=splitChars(glow,'ch');
+    if(reduce || !hasST){ gsap.set(gc,{opacity:1}); }
+    else { gsap.set(gc,{opacity:0.22}); gsap.to(gc,{opacity:1, ease:'none', stagger:0.4, scrollTrigger:{trigger:glow, start:'top 80%', end:'top 30%', scrub:true}}); }
+  }
+  // C) hand-drawn lasso around 好的設計
+  function drawLasso(){
+    var tgt=document.querySelector('.contact-title .lasso-target');
+    if(!tgt || tgt.querySelector('.lasso-svg')) return;
+    var ns='http://www.w3.org/2000/svg';
+    var svg=document.createElementNS(ns,'svg'); svg.setAttribute('class','lasso-svg'); svg.setAttribute('viewBox','0 0 320 140'); svg.setAttribute('preserveAspectRatio','none');
+    var path=document.createElementNS(ns,'path');
+    path.setAttribute('d','M30,86 C50,40 130,22 196,28 C270,34 306,64 292,92 C280,116 182,126 110,120 C44,114 6,96 36,66');
+    path.setAttribute('fill','none'); path.setAttribute('stroke','#c2a878'); path.setAttribute('stroke-width','4'); path.setAttribute('stroke-linecap','round');
+    svg.appendChild(path); tgt.appendChild(svg);
+    var len=path.getTotalLength(); path.style.strokeDasharray=len; path.style.strokeDashoffset=len;
+    if(reduce){ path.style.strokeDashoffset=0; return; }
+    gsap.to(path,{strokeDashoffset:0, duration:0.9, ease:'power2.inOut', delay:0.15});
+  }
+  // B) Contact title: char pop-in entrance, then lasso
+  var ct=document.querySelector('.contact-title.splitin');
+  if(ct){
+    var cc=splitChars(ct,'ch');
+    if(reduce || !hasST){ gsap.set(cc,{opacity:1,y:0}); drawLasso(); }
+    else {
+      gsap.set(cc,{opacity:0,y:34});
+      gsap.to(cc,{opacity:1,y:0,duration:0.7,ease:'back.out(1.6)',stagger:0.045,
+        scrollTrigger:{trigger:'#contact', start:'top 72%', once:true}, onComplete:drawLasso});
+    }
+  }
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ if(hasST) ScrollTrigger.refresh(); }); }
 })();
 </script>
 </body>
