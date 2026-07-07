@@ -569,10 +569,10 @@ section[id]{scroll-margin-top:84px}
         <div class="work-info"><div class="work-num">[ 001 ]</div><div class="work-company">Audi 嚴選中古車</div><div class="work-title">Web Design・RWD・中古車買賣平台 UI/UX</div><div class="work-tags-row"><span class="work-tag">UI/UX</span><span class="work-tag">RWD</span><span class="work-tag">Automotive</span></div></div>
       </div>
 
-      <!-- 002 台灣百和 PAIHO -->
-      <div class="work-card" data-category="integrated" data-lightbox='["works/Paiho_01.png"]' data-company="台灣百和 PAIHO" data-title="企業官網視覺企劃">
-        <div class="work-img-wrap frame-wrap cropped"><img src="works/Paiho_01.png" alt="台灣百和 PAIHO"><div class="work-overlay"><div class="work-overlay-label">[ UI/UX · Corporate ]</div><div class="work-overlay-title">台灣百和 PAIHO<br>官網</div><div class="work-overlay-arrow">↗</div></div></div>
-        <div class="work-info"><div class="work-num">[ 002 ]</div><div class="work-company">台灣百和 PAIHO</div><div class="work-title">企業官網視覺企劃</div><div class="work-tags-row"><span class="work-tag">UI/UX</span><span class="work-tag">Corporate</span><span class="work-tag">ESG</span></div></div>
+      <!-- 002 知名公司 -->
+      <div class="work-card" data-category="integrated" data-lightbox='["works/Corporate_01.png"]' data-company="知名公司" data-title="企業官網視覺企劃">
+        <div class="work-img-wrap frame-wrap cropped"><img src="works/Corporate_01.png" alt="知名公司"><div class="work-overlay"><div class="work-overlay-label">[ UI/UX · Corporate ]</div><div class="work-overlay-title">知名公司<br>官網</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 002 ]</div><div class="work-company">知名公司</div><div class="work-title">企業官網視覺企劃</div><div class="work-tags-row"><span class="work-tag">UI/UX</span><span class="work-tag">Corporate</span><span class="work-tag">ESG</span></div></div>
       </div>
 
       <!-- 003 BigbigC 香港影音平台 -->
@@ -748,6 +748,12 @@ section[id]{scroll-margin-top:84px}
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- 033 設計公司網站製作(AI) -->
+      <div class="work-card" data-category="ai" data-link="https://ccxxvi.com/">
+        <div class="work-img-wrap frame-wrap"><img src="works/AIWeb_01.png" alt="設計公司網站製作" loading="lazy"><div class="work-overlay"><div class="work-overlay-label">[ AI · Web ]</div><div class="work-overlay-title">設計公司網站製作</div><div class="work-overlay-arrow">↗</div></div></div>
+        <div class="work-info"><div class="work-num">[ 033 ]</div><div class="work-company">設計公司網站製作</div><div class="work-title">整個專案由 AI 完成・企劃・視覺・前端開發・點擊瀏覽網站</div><div class="work-tags-row"><span class="work-tag">AI</span><span class="work-tag">Web Design</span><span class="work-tag">RWD</span></div></div>
       </div>
 
     </div><!-- end works-masonry -->
@@ -1015,6 +1021,7 @@ function enterDetailMode(idx){
 }
 document.querySelectorAll('.work-card').forEach(card=>{
   card.addEventListener('click',()=>{
+    if(card.dataset.link){window.open(card.dataset.link,'_blank','noopener');return;}
     const raw=card.dataset.lightbox;if(!raw)return;
     currentImages=JSON.parse(raw);lbIdx=0;
     lbCompany.textContent=card.dataset.company||'';
